@@ -106,3 +106,6 @@ Strait is free. Open the VCV Library, find Strait by Ormer Modular, and subscrib
 | Polyphony | not polyphonic; polyphonic audio cables are summed |
 | Levels | audio nominally 5 V peak; peaks above 10 V gently limited |
 | Sample rates | any |
+
+## Credits
+Knob, jack and screw artwork shown in the panel pictures is from the VCV Rack Component Library, (c) VCV, CC BY-NC 4.0.
