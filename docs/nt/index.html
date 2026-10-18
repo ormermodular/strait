@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strait disting NT Manual</title>
+<style>
+  /* Single look, the Ormer Modular manual house style: night-sea blue-grey with the lamp amber.
+     Layout: one centred column; the interactive panel is the hero. */
+  :root{
+    --bg:#0b1119; --panel:#1c242e; --panel-edge:#39424e; --card:#141b24; --rule:#2c3641;
+    --ink:#c9d9e6; --strong:#e8eef5; --muted:#84939f; --accent:#e2a24a;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--mono);margin:0;padding-block:40px 90px;padding-inline:20px}
+  .wrap{max-width:840px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+  .eyebrow{color:var(--accent);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+  h1{font-size:30px;font-weight:700;color:#eef2f6;margin:10px 0 4px;letter-spacing:.14em;text-wrap:balance}
+  .vstamp{color:var(--muted);font-size:11px;letter-spacing:.14em;margin:0 0 10px}
+  .lede{color:var(--muted);font-size:13.5px;line-height:1.7;max-width:64ch;margin:0}
+  .lede b{color:var(--ink)}
+  h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;font-weight:600;text-wrap:balance}
+  h3{font-size:13px;color:var(--strong);margin:22px 0 8px;font-weight:700;letter-spacing:.02em}
+  section>h3:first-of-type{margin-top:0}
+  p{font-size:12.5px;line-height:1.75;color:var(--muted);margin:0 0 10px;max-width:70ch}
+  p b,li b,dd b{color:var(--ink)}
+  p code,li code,td code,dd code{color:var(--accent);background:rgba(226,162,74,.08);padding:0 4px;border-radius:3px;font-size:.95em}
+  ul,ol{margin:0 0 10px;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+  li{font-size:12.5px;line-height:1.7;color:var(--muted);min-width:0}
+  li::marker{color:var(--accent)}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .toc a{color:var(--ink);text-decoration:none;font-size:10.5px;letter-spacing:.08em;
+    border:1px solid var(--panel-edge);border-radius:999px;padding:5px 12px;background:var(--card)}
+  .toc a:hover,.toc a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+
+  /* interactive panel */
+  .stage{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:28px;align-items:start}
+  @media (max-width:700px){.stage{grid-template-columns:minmax(0,1fr)}}
+  .figcol{display:flex;flex-direction:column;gap:12px;max-width:360px;width:100%;margin-inline:auto}
+  .seg{display:flex;gap:0;border:1px solid var(--panel-edge);border-radius:999px;overflow:hidden;align-self:flex-start}
+  .seg button{font:inherit;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;
+    background:var(--card);color:var(--muted);border:0;cursor:pointer}
+  .seg button+button{border-left:1px solid var(--panel-edge)}
+  .seg button[aria-pressed="true"]{background:var(--accent);color:#1a1206;font-weight:700}
+  .fig{position:relative;border-radius:6px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.5);
+    aspect-ratio:960/1518;background:#171717}
+  .fig img{display:block;width:100%;height:100%}
+  [hidden]{display:none!important}
+  .hs{position:absolute;transform:translate(-50%,-50%);aspect-ratio:1;border-radius:50%;padding:0;
+    border:2px solid transparent;background:transparent;cursor:pointer}
+  .hs:hover{border-color:rgba(226,162,74,.55)}
+  .hs[aria-pressed="true"]{border-color:var(--accent);background:rgba(226,162,74,.16)}
+  .hs.rect{border-radius:4px;aspect-ratio:auto;transform:none}
+  .info{border:1px solid var(--panel-edge);border-radius:10px;background:var(--card);padding:18px 20px;min-height:12em}
+  .info .kind{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+  .info h3{margin:0 0 10px;font-size:16px;letter-spacing:.1em}
+  .info p{font-size:12.5px}
+  .hint{font-size:11px;color:var(--muted);margin-top:10px}
+
+  table{border-collapse:collapse;width:100%;font-size:12px}
+  th{color:var(--muted);font-weight:600;text-align:left;font-size:10px;text-transform:uppercase;
+    letter-spacing:.14em;padding:8px 12px;border-bottom:1px solid var(--rule)}
+  td{padding:8px 12px;border-bottom:1px solid var(--panel);vertical-align:top;line-height:1.6;color:var(--muted)}
+  td:first-child{color:var(--strong);font-weight:700;white-space:nowrap}
+  td:nth-child(2){color:var(--accent);white-space:nowrap}
+  .tablewrap{overflow-x:auto}
+  .wide td:nth-child(2){white-space:normal}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
+  .card{border:1px solid var(--panel-edge);border-radius:10px;background:var(--card);padding:16px 18px}
+  .card h4{margin:0 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .card p{margin:0;font-size:12px}
+  .card .set{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--rule);
+    font-size:11px;color:#a9b4c0;line-height:1.8}
+  .card .set b{color:var(--accent);font-weight:600}
+
+  .note{border:1px solid var(--panel-edge);border-left:3px solid var(--accent);border-radius:8px;
+    background:var(--card);padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.7;max-width:none}
+  .note b{color:var(--ink)}
+
+  .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 14px}
+  .flow span{border:1px solid var(--panel-edge);background:var(--card);border-radius:6px;
+    padding:5px 10px;font-size:10.5px;letter-spacing:.08em;color:var(--ink)}
+  .flow em{color:var(--accent);font-style:normal;font-size:11px}
+
+  .qa dt{font-size:12.5px;color:var(--strong);font-weight:700;margin-top:14px}
+  .qa dt:first-child{margin-top:0}
+  .qa dd{margin:4px 0 0;font-size:12.5px;line-height:1.7;color:var(--muted)}
+
+  footer{border-top:1px solid var(--panel);padding-top:22px;text-align:center}
+  footer p{max-width:none;margin:0 0 6px}
+  .fin{color:var(--accent);letter-spacing:.3em;font-size:10px;text-transform:uppercase}
+
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:18px}
+  .steps table td:first-child{white-space:nowrap}
+  .steps td:nth-child(3),.steps td:nth-child(4){color:var(--muted);white-space:nowrap}
+
+  .shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+  .shots figure{margin:0}
+  .shots img{width:100%;height:auto;display:block;image-rendering:pixelated;border:1px solid #28343f;border-radius:6px;background:#000}
+  .shots figcaption{font-size:12px;color:#84939f;margin-top:6px;line-height:1.5}
+  @media (max-width:700px){.shots{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Ormer Modular · made in Guernsey</div>
+    <h1>STRAIT</h1>
+    <p class="vstamp">USER MANUAL · DISTING NT · v0.1.0</p>
+    <p class="lede">Strait is a stereo filter whose two sides can drift apart. One filter sits on the left and one on the right, and both follow the same controls, so a mono sound comes out as a matched pair. Then <b>SPREAD</b> pulls the two cutoffs apart, left up and right down, and the sound opens out into the stereo field. Put a slow LFO on SPREAD and the filtering sways between the speakers. <b>DRIFT</b> lets each side wander on its own, so the image never quite stands still. Choose low pass, band pass or high pass with <b>TYPE</b>. Strait is aimed at ambient work and is deliberately simple: three pots, two pages, and every parameter takes CV through the disting NT's own mapping.</p>
+    <nav class="toc"><a href="#install">Installing</a><a href="#screen">The screen</a><a href="#pots">The pots</a><a href="#params">Parameters</a><a href="#stereo">A matched pair</a><a href="#type">Type and slope</a><a href="#res">Resonance and self-oscillation</a><a href="#cv">CV and modulation</a><a href="#trouble">Troubleshooting</a><a href="#specs">Specifications</a></nav>
+  </header>
+
+  <section id="install">
+    <h2>Installing</h2>
+    <p>Strait needs disting NT firmware <b>1.19 or newer</b>.</p>
+    <ol><li>Get <code>strait-plugin.zip</code> from the latest release on the Strait GitHub page, or add Strait from the disting NT Plugin Gallery.</li><li>Unzip it onto the MicroSD card, so that <code>strait.o</code> ends up in <code>programs/plug-ins/ormermodular/</code>.</li><li>Restart the module, or rescan plug-ins from the settings menu.</li><li>Add an algorithm, then choose <b>Strait</b> (tagged Effect and Filter/EQ).</li></ol>
+    <p>Strait is free. It is closed source, and made by Ormer Modular in Guernsey.</p>
+  </section>
+
+  <section id="screen">
+    <h2>The screen</h2>
+    <p>The whole display belongs to Strait. There is no parameter line along the top; the screen is a small scene that shows what the filter is doing.</p>
+    <div class="shots"><figure><img alt="Page 1, low pass. The open water between the two shores is the passband." src="data:image/webp;base64,UklGRnAEAABXRUJQVlA4TGMEAAAv/8IvAEfjoG0kSWqn9+WPd+9oOGzbNpBEt3e//8J/Dts2ciTTvvj9txvmP6Y8dmijyDzPCwSIgUhBKpWiUuI4J0iJzvSxO7QSICjF7gATir+/qlSbNXDeiw9IiVaZ3awZCPj5udxAMQFiBFSlYBany5qBICZ2s4ZSfL4ut90cO40Q57kESqTu5yEmiDW7A2TChBv953lf172c9/L+PgwUbdtW3TY3ZWYI8wuzqdyGuczcxPT/3yDdB9LDviutFdF/OZAkKZLkqS1v3eTx3UNpYSFzjugm/K0X9aq+CwHu61v6q27CBVjRNyDAAy1lD9zRf+G2Tj4d4IGu6LoGuKXAz7A5nTXYhN90n8Yf6oINJ/RV/R7irsARDQAUcURXNNdJXYU9EHk6ALCid+FZnQS8rxcgwDV9Ww/oZxp/qAs2bMI/cEkj7sHz8Kle13dhRTcB+EZDmVzV9yD+dIAvYEWP6BmN+xImbcLv8DLEH+qCDScUAC7qUX0FIgV5Be5C8Ruq8uTX9HMofvJpOAfxk9MjG9pJqQ3jJf0F/tQP4QJswl96CorfUDVfd/4WJh2Dx1AQcF+PQ+ShJgAGjeyF2jy7Oic9cjOa0MOzoWmfDOIy6ONvUBbVAJIJg+4N1eWL1OmRvRCGtYxF9covaCYAlu5EXfADWPpv6b9lbdR0ltoHS5pu+no6Pa4RNwEAFpMAUkBPc0JfsKFtRG2e41kd/8tyQsPU8Px0Ot2fyNwRjhy1eNeSAFXWsMUBXU/DFG38b35qOKioe9HG/xq7hnun0+/+JlcAULuijf81Qw0HhpPnv2jjf01Yw75vDouWjtibE2pUw96tYd7Q7I0mCdAMNey/GqZo43+NWMMemIYp2vhfA9ewV3awpkUb/2uRGvbBf7BkXYo2xteAGZzszQljfI2fAcbenDDG13IZJOzNCWN8rZ6ebm9OGOPrMOmt9uaEMb5ulv73n1kRTZLk/MKfhME/S89l0DGnlEGtn2kGKbiud+Qs5dWxZDAnMqjRkZBBpzgyMxj/G/5PXqquFp/VzKClPmuXQadoSgZVymD8b/g/eVRvofhvrWySH+Ko0UAySKTswmy11Gw74wsixfF0FtmFFvk7GMxqti0y9ionWfELIu3QAJ83exc2AfhBr2mR1YFvwQv6o/4BH2hLfUvYthbcmXh8Y+MzmV4jjTo+ydxVlcePuh2NL478kt6AACv6n34Hr2kAAEhTADVyBQKUWh34ZTgOb8B9DW2TsgO/Akc0tEqugFpwVeWlFkf+lX4Mz+iKvgn79bomZDYB+ASKrw78I31dAzzUllJ84PGNjbeF+CRzV1VeavjX9LAehMjagh9BKmN3OgEyAIA5P/k0nIOCJ9/W+fwsa61PLjvw+MbGZzvY+Rn+bH+pWsFJTg657PDP6iYA17WykzNIsJRaHfiL+hM80XegdW6o7MDjGxsPLZH4JCPKDv8ePAcBHsMqPNFqvu6cuqhnTsEhCANC/re3IDsAAA=="><figcaption>Page 1, low pass. The open water between the two shores is the passband.</figcaption></figure><figure><img alt="Page 1, band pass, with Spread to the right. Only a narrow channel stays open at each cutoff." src="data:image/webp;base64,UklGRu4EAABXRUJQVlA4TOIEAAAv/8IvAEfjqI0kSUpnzvUb/mBnlwbDtm0jiekD3P77Xh23bSRJpqu6Z/e5+cd6zH+kPGZ1hqLGc95AgAhEFVRVVVFV4lgHVImu0cdmdUqAoBSbBQnF31+rqs6YAee+PKBKdKrGZswIBPz8XB6gSICIgFZVkInTNSMQRCJixgxK8fm6PDbjmCNCnOsqKFF1nxeRIGZsFtQoEnb0H899O+/xfh8Gita2t20bJuneu9mb2duru83eSffeMVvf/zXYEAmRAC2T0vtG9B8S2zaSJPnXF7rTpZnduWfyK+Yy54hW8Bdc1Kv6LhRwX9/SX7SCC7Ckb0ABD7URu+CO/qO3dfPhAA91SVe1gFsK/ATVlrACFfwK+zS8q3M2OKGv6nca5goc0QKAOhzRJZ3ISV2GXRA4HABY0ruwRzcDvK8XoIBr+rYe0M80vKtzNqjgb7ikAe7B8/CpXtd3YUkrAL6Gokmu6nsQPhzgC1jSI3pGw3wJm6ngN3gZwrs6Z4MTCgAX9ai+AgFBXoG7UH9DMSe/pp9D/cmn4RyEJ4+PWNNeipoYXtKf9Q/9EC5ABX/qKai/oTj3O38DmzkGT7QmwH09DoFdHQEw08he6MzRdTnjI24GU2zDs6bjPkoIU8J2/AplXg3AaIKZ7oa6cif1+Ii9UMzWsjPJTl7UEQALd6LO+QFY+M/Cfxa1oY5MUfPIer08VTWbto4T+X9LzKBoZZM8nRBzJEKg+GNAyljJnWhATA0T/R5GsTL8p1dMzqBoSdIw75NVdfhPAqpxfktI3jsyT0W09GiY/dHlhFgCMPwHANYnhJ7AVERLg4bJIxmiAcN/YmrYFdIsWgo1TA+dFm34T6o03AsAkEHR9jZJBjXcCwDQLdGG/3RFw/ZMzqxoQBo07OLklos2/CcNGk6RDIqWQg07QdtEG/6TQg1jkiPR0q9hO0mJaHsBGP4DAB36M6wRWRAtdxq2hGSIBgz/SYOG6RetF2mYEtGG/yRPwwiupUG03qJhBNc6KtoAn8SfyghvWJM70frhmBngk4ZT2SGyI1o/HDMDfFJ4KttM+kXrh2NmgE/6T2WrSLBo/XDMDPDJ3amcLikUrR+OmQE+eT+VkUmSaP1wzIz7AGK+I9veJKQfjpmREefn/mRR+Pf42zH+Hn8l9JnKnIcSxotsh3MeClj4TwRKaP8NjCUk5sbM7NwaWcLwn9n/5MXmdPFWzRIibyhfzzLIXT1LiEkJw39m/4sM9JmXnUQ+iaNDBSlhJMUGtJ/tSP3VTgy8MQ7r08gGRPiZhhJc9rbVP53sjZjIA2/cQQJuN3sXKgC+12tap3Xg/+kL+gP8rh9opp44ULPgDzXcsfENiF+9JJU6XMmJrSoPF/+BBoq/AZf0BhSwpP/qt/CaFgAA4xSADnEFCmjUOvDLcBzegPta5CZNC76lY+NZyRVQa7aqvFHjyL/Sj2G3LumbsF+v64iMCoBPoH7rwD/S17WAR5Ap6hc83LHxXBCu5MRWlTcq/jU9rAch0LbgxzCWYWNLKKAEAGj55NNwDmpOvq3tvJW105ObFjzcsfHpFrY9xZ/ui6rVrOTmIjct/lmtALiu0SaXMMKiUevAX9Qf4Rm8A9nZUNOChzs2XmQi4UoGaFr8e/AcFPBEl+EZxLnfeexCN3MKDkExQ8iOPXOyAw=="><figcaption>Page 1, band pass, with Spread to the right. Only a narrow channel stays open at each cutoff.</figcaption></figure><figure><img alt="Page 1, high pass. The middle fills in as an island and the water lies outside it." src="data:image/webp;base64,UklGRlgEAABXRUJQVlA4TEsEAAAv/8IvAEfjoG0kSWqn9+WPd+9oOGzbNpBEt3e//8J/Dts2ciTTvvj9txvmP6Y8dmijyDzPCwSIgUhBKpWiUuI4J0iJzvSxO7QSICjF7gATir+/qlSbNXDeiw9IiVaZ3awZCPj5udxAMQFiBFSlYBany5qBICZ2s4ZSfL4ut90cO40Q57kESqTu5yEmiDW7A2TChBv953lf172c9/L+PgwUrW1P20iaZWYYZg9zaXl3mGeZeaZ0/9fQI0NiyUmq5H0j+g8JgNu2zeHnbUTITjrwC3OZdUTX4R+9qFf1fQhwX9/R33QdLsCSvgUBHmgr9sAd/Q9u6xFdB+CBLumqBrilwC+wDgCwAuvwu+7T+KHO2eCEvq4/QJwrcEQDAE04oktay0ldhj0QOR0AWNK78LzuBPhQL0CAa/quHtAvNH6oczZYh3/hkka4By/C53pd34clXQfgWw1tdFU/gPjpAF/Bkh7RMxrna9jJOvwBr0L8UOdscEIB4KIe1dcgEpDX4C4031CXk9/QL6H55NNwDuKTyyPWdJCiJoZX9Ff4Sz+GC7AOf+spaL6hbl53/g52cgweQ0OA+3ocIodaADDV0F7ozdn1WeURN6MKE7jWtOyjgjgVTOI3KPNqAIoJprob6suL1OUReyFM1zSbZJYntQBg4Y7UOT8AC/9Z+M+iHp5F9aRGpvPjEgUuai6CBlRtVBvDxI+TkpQnqqo5ChrQZQzTGY2bAADlKbkIWkpiWF6T7KD1JYbJY03LTc4DAPT6JzJ3HLQ0xDBJ46SwpuOgpTCGhTi5CNreNupRDAtr9gIA5ChoQI5iuBcAoBjlPABALoKWwhiOz+TylGQHLf0xLIhJZ9ByF8OSl4QFLe8xLFtJWNCGUgyLUdIQtIEWw2KUngZtGMawOGbvcFI5zt6hqJKavcNYZTF7JwGVtuydfFSksndyUwnF+bk/ClN/LU6ngmFoTgW9PsEKymuG5zhZpMtQo4IxoYIeDYkKBsUQrWD3P9P/yYvZGednNSvoeEPppIJBEZkKuqSC3f9M/yfvhmfO+ZdVJuBDHD0ypIJCim0YLZnydjBeECUOz0ahbcjI77EwKm8zYnuXTnZ8QZQdJOB5s/dhHYAf9Zo2qQ58A17Sn/RP+Egz9d6wTW3YmXi8sfGRuJckq+NO1lZVHh91WxovjvyS3oAAS/q/fg9vaAAAKFMAesQVCNCqOvDLcBzegvsacqO2hl+BIxqyoiugNqyqvFVx5N/op/CcLunbsF+va0HGOgCfQfPqwD/RNzXAQ80UzQ2PNzaeC+JO1lZV3sr8a3pYD8KSvgUBHkEpwzYAQIAKAGDMJ5+Gc9Bw8m0dz2dZez25reHxxsZHa+z4mD/aL1Vr6OROk9uaf1bXAbiunU2uoMCiVXXgL+vP8FTfg+xsqK3h8cbGQyYUdzJCW/PvwQsQ4DEsw1Pt5nXn0oV+6hQcgjBF0MyeOdkCAA=="><figcaption>Page 1, high pass. The middle fills in as an island and the water lies outside it.</figcaption></figure><figure><img alt="Page 2: Drift, Slope and Type. The second page dot is lit." src="data:image/webp;base64,UklGRhQFAABXRUJQVlA4TAcFAAAv/8IvAH/DoG0bwbkk3T2HZ9C2jaC4dwyeP9U/Bm3bCKrbu0fx/Gne/AfldmxjoTKEAW5DpISRAkZKGCKVUs0gMtsYwmiD6LEdQhjENhYqkSLwVKWI736MbVQIHyJltCJSGYWR4vC6VIEQ4u0SBHvONZMR26RY9Gab23G7EIa4XSI108ZQWIkUcRswI24HIThP/2zzfz8DtWvb0zaSZ5lpmJmZmZlhmZnr7f//bjtZVZaVjtXed0T/IUGS2zYa/FA1DhAuEKLjs1r0j2X/WWKVbVoAsJRaXNdcPZqlBi/FJpZqUcjDzpjRp45lH4e1m8M6pMyFjRfBI6l/UEp85lQ9HHekQS0myIoLGmQ3f9RtWh6hEl8MsptRamFEGk5opt/ttVpuMqeZdrwmumlQC03UOVUzcNA6ey1AXgBQBKB2qHnobos7gqkZ5Y7/mVLNQzcNaua4438CqPnmpkfNELeAQFVzIBHeTZiaAxlVLQjInwWIqoZ0k6e+AGDYlxvlAts0mJpXg9ahG8Ne19T6pQNqj9TrOqRupp2Mvq79csf/9Es93QoGwc1V9TQAQC/c8T8xqAtI4t0hUpNE5O74n6jUxBPeHTS1LwPVaAnpjvyJNqEmGHWhMrm3AAlJhMuNIoD41ZCk1h1eNQ3E5o7/6ZcahnS6w672nXjc8T+JUbe1whS62a5uU1WNwR3/kwA1GenwboaoyUiHdIsYVDXMAqTXqGqq3AQ/Z3uveQFAmP4pFEjDGHYiiRy05skYtkeEH7QWAaRQbQGJcXNM7QWB3fE/qVVT4s4oamB3/E+y1aRursvtLXkh3TE/g3DUInz3+Gl2861/CinUfpHaTL71T2mFqvaFpLr51j/FFqoaP4l0861/ijBUNWaS5+Zb/xRnqGqcJMzNt/4p1Ij5dfdMUeRb/xQ3nF7yJ6pF/1j+l8Ma/z1SAQDYpsmusJrmpkrefVQBIHBnHtbxPzPHV7uW4V/+2zLdHNYYiG1qN7xnRdUwh6MXd3/8z+J/eikK3tQbUOYS2yw0VRzWPt7+k1rDL7oZmryiX+s6mJ7mTf1D92vgEaiaSLoLuxdq+FMfwfifWTa9By5Ak2NwFSayEn6Ex9Bkq67R+1oNU3QXdi8cgo/0SyjjAIaXFXAKXocKVsEGvQATuQK7Yae20vCv7oWBoruwzfRfcE6rVlD6cFgBQM1A3oGr8IZWANyDGoAftJvLsBt2aUf6bfhMezeX7ku6u7DNdB+fQq0AoOcxr4PJBagB6B6iTpNeCT/BY2il4S+4pAOV7i5six5G+cLc/4x5XbAX+p9Vo4Ag5fO3a/o3fAEfawVXoIb/YDvsgRqAK7AOagC+0u+UVvAaVJDyIdsa/V5rOKMVbNUT2uQ9/QZ+hU3Qsf3+rDZvA/AMYqh5Mujupdu6Cl7VJ7pPpyx40QMQG6t1B9yDJmthl97RCrboGQXWwQWoWsFGPaNDcUF7oQJgIufhIKyCJ9q9/X5wRpHT9NJb+kAv6nqdvuBlGauggk+1lYZf4QPoppWGWzosvKu39R6sg4nchE+ggufQvf1+L9QA3IWBAjiuzapOX/ASh8OqqsB8Kww84guZPgrHNap0hA+jUIkpPoQnGiBdAZDIf78P6wLS3W/TF7zAApief6B53rkFVPBUD0ANwBXoZljSag2/wxFtUgPws76v38JvsBkmUgPwOaQtHQnTF7wYYhHvDci9PGTp+wAA"><figcaption>Page 2: Drift, Slope and Type. The second page dot is lit.</figcaption></figure></div>
+    <p>It is a night sea seen from the shore. The <b>open water is what the filter lets through</b> and the <b>land is what it stops</b>. The picture reads from the centre line outward as low to high frequency, so the shores sit further out as the cutoff rises.</p>
+    <ul><li>The <b>left shore</b> is the left filter and the <b>right shore</b> is the right filter. Each has a small lamp tower.</li><li><b>FREQ</b> moves both shores. <b>SPREAD</b> pulls them apart in opposite directions, so the whole channel swings to one side.</li><li><b>TYPE</b> redraws the land. Low pass keeps the water between the shores. High pass fills that stretch in as an island, with the water outside it. Band pass leaves only a narrow channel at each cutoff.</li><li><b>RES</b> lights the lamps and narrows the band-pass channels. At self-oscillation, rings spread across the water.</li><li><b>SLOPE</b> sets how steeply the cliffs fall: gentle at 12 dB per octave, steep at 24.</li><li><b>DRIFT</b> makes each shore wander on its own. In its upper half the whole picture also weaves, like a worn tape.</li></ul>
+    <p>Along the bottom, a label names what each pot does right now, with a small bar for its value. The two squares at the bottom left are the page dots: the lit one is the page you are on.</p>
+  </section>
+
+  <section id="pots">
+    <h2>The pots</h2>
+    <p>The three pots always edit three parameters, and which three depends on the page. <b>Push the centre pot</b> to step to the next page.</p>
+    <div class="tablewrap"><table><tr><th>Page</th><th>Left pot</th><th>Centre pot</th><th>Right pot</th></tr><tr><td>1</td><td>FREQ</td><td>RES</td><td>SPREAD</td></tr><tr><td>2</td><td>DRIFT</td><td>SLOPE</td><td>TYPE</td></tr></table></div>
+    <p>After a page change each pot stays silent until you turn it to the value it now owns, so nothing jumps. Flip pages freely while playing.</p>
+    <p>On page 1, <b>pushing the right pot returns SPREAD to centre</b>. This is labelled PUSH: CENTRE along the top edge of the screen. On page 2 the right pot push does nothing.</p>
+    <p>Strait leaves the rest of the module alone. Buttons 1 to 4, the left pot push and the left encoder push work as they do everywhere on the disting NT. The encoders and the right pot push do nothing while Strait's screen is showing; press button 2 for the parameter list, where they work as usual.</p>
+  </section>
+
+  <section id="params">
+    <h2>Parameters</h2>
+    <p>Every parameter is a normal disting NT parameter, so all of it can be mapped to CV, MIDI or i2c and automated through the module's own Mappings, like a built-in algorithm.</p>
+    <div class="tablewrap wide"><table><tr><th>Parameter</th><th>Range</th><th>Notes</th></tr><tr><td>Freq</td><td>about 16 Hz to 16.7 kHz</td><td>The cutoff, shown in Hz, for both sides together.</td></tr><tr><td>Res</td><td>0.0 to 100.0%</td><td>Resonance, for both sides. Self-oscillation starts above about 90%.</td></tr><tr><td>Spread</td><td>-100.0 to +100.0%</td><td>Moves the two cutoffs in opposite directions, by up to an octave each. At 0 they are the same.</td></tr><tr><td>Drift</td><td>0.0 to 100.0%</td><td>A slow, separate wander of each side's cutoff. At 0 it is off.</td></tr><tr><td>Slope</td><td>12 or 24 dB/oct</td><td>Roll-off steepness.</td></tr><tr><td>Type</td><td>Low pass, Band pass, High pass</td><td>The filter response.</td></tr><tr><td>Left input</td><td>Input 1</td><td>Audio in, left.</td></tr><tr><td>Right input</td><td>Input 2</td><td>Set to None for mono: the left input then feeds both sides.</td></tr><tr><td>V/Oct input</td><td>None</td><td>Optional 1 V per octave pitch input for the cutoff.</td></tr><tr><td>Left output</td><td>Output 1</td><td>Mode defaults to Replace.</td></tr><tr><td>Right output</td><td>Output 2</td><td>Mode defaults to Replace.</td></tr></table></div>
+    <p>The macros run at 0.1% resolution and every audible target glides inside the filter, so mapped steps and fast automation stay clean.</p>
+  </section>
+
+  <section id="stereo">
+    <h2>A matched pair</h2>
+    <p>With SPREAD at 0 and DRIFT at 0, the left and right filters are identical, and the left and right outputs are exactly the same, sample for sample, whenever the two inputs carry the same signal. Move either parameter and the two sides part company.</p>
+    <p>If <b>Right input</b> is set to None it copies the left input. A mono source patched only to the left input therefore comes out in stereo as soon as SPREAD or DRIFT moves.</p>
+  </section>
+
+  <section id="type">
+    <h2>Type and slope</h2>
+    <p><b>Type</b> chooses which response comes out: low pass, band pass or high pass. Strait runs all three at once and picks one, so changing Type while a sound is playing never restarts the filter. The change crossfades over a few milliseconds, which keeps a stepped CV, an LFO or a pot sweep on Type free of clicks.</p>
+    <p><b>Slope</b> is 12 dB per octave by default, which is gentle and suits ambient work. At 24 dB per octave a second, fixed stage follows the filter for a steeper roll-off. All the resonance stays in the first stage, so the self-oscillating tone is just as clean.</p>
+  </section>
+
+  <section id="res">
+    <h2>Resonance and self-oscillation</h2>
+    <p>Resonance rises smoothly with Res and stays stable across the whole range, including when the cutoff is modulated at audio rate. In the top tenth of its travel (above about 90%) the filter begins to oscillate on its own and makes a clean sine tone on each side, at the cutoff. The tone follows the V/Oct input closely, so Strait can be played as a pair of sine oscillators, and Spread tunes the two tones apart. Low pass and high pass give the tone at about 5 V peak. Band pass is quieter.</p>
+    <p>The band-pass response keeps its level as resonance rises. Its peak at the cutoff grows as the band narrows, so turning Res up sharpens the sound without thinning it out.</p>
+    <p>The tone starts by itself, even with nothing patched. Turn Res down to stop it.</p>
+    <p class="note"><b>Note.</b> Resonant peaks can be louder than the signal going in. Anything above 10 V is gently limited, so a hot input at high resonance cannot run away.</p>
+  </section>
+
+  <section id="cv">
+    <h2>CV and modulation</h2>
+    <p>Map any parameter to CV with the disting NT's Mappings. By default a mapping covers the parameter's whole range, so a full-range CV sweeps Res from 0 to 100%, or Spread from far left to far right.</p>
+    <p>The <b>V/Oct input</b> is separate from the mappings. It adds to the cutoff at 1 V per octave, sample by sample and without smoothing, so it can be driven at audio rate for frequency modulation. A tracked pitch CV there, with Res above 90%, makes Strait a pair of sine oscillators.</p>
+    <p>The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, Spread, Res or Drift glides instead of clicking.</p>
+  </section>
+
+  <section id="trouble">
+    <h2>Troubleshooting</h2>
+    <p><b>There is a tone and nothing is patched.</b> Res is in the self-oscillating part of its range. Turn it down.</p>
+    <p><b>Left and right sound the same.</b> That is by design when Spread and Drift are both at 0. Turn Spread or Drift.</p>
+    <p><b>The right output is silent.</b> The right side is fed from Right input, or from the left input if Right input is None. Check that something is patched to Input 1.</p>
+    <p><b>The pots do nothing after a page change.</b> Each pot stays silent until you turn it to the value it now owns. Turn it past that value and it takes over.</p>
+    <p><b>Strait does not appear in the algorithm list.</b> Check the firmware is 1.19 or newer and that <code>strait.o</code> is in <code>programs/plug-ins/ormermodular/</code> on the card.</p>
+  </section>
+
+  <section id="specs">
+    <h2>Specifications</h2>
+    <div class="tablewrap"><table><tr><th></th><th></th></tr><tr><td>Format</td><td>disting NT algorithm, free, closed source</td></tr><tr><td>Version</td><td>0.1.0</td></tr><tr><td>Firmware</td><td>1.19 or newer</td></tr><tr><td>Cutoff</td><td>about 16 Hz to 16.7 kHz, plus V/Oct and CV</td></tr><tr><td>Slope</td><td>12 or 24 dB per octave</td></tr><tr><td>Type</td><td>low pass, band pass or high pass</td></tr><tr><td>Spread</td><td>up to one octave either way, two octaves between the sides</td></tr><tr><td>Inputs</td><td>stereo audio in (right copies left when None), V/Oct</td></tr><tr><td>Outputs</td><td>one stereo pair</td></tr><tr><td>Levels</td><td>audio nominally 5 V peak; peaks above 10 V gently limited</td></tr><tr><td>Sample rates</td><td>any</td></tr></table></div>
+  </section>
+
+  <footer>
+    <p>Strait is free, closed source, and made by Ormer Modular in Guernsey.</p>
+    <p class="fin">Ormer Modular</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
