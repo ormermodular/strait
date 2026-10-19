@@ -1,8 +1,8 @@
 # Strait: disting NT manual
 
-Version 0.1.1.
+Version 0.1.2.
 
-Strait is a stereo filter whose two sides can drift apart. One filter sits on the left and one on the right, and both follow the same controls, so a mono sound comes out as a matched pair. Then **SPREAD** pulls the two cutoffs apart, left up and right down, and the sound opens out into the stereo field. Put a slow LFO on SPREAD and the filtering sways between the speakers. **DRIFT** lets each side wander on its own, so the image never quite stands still. Choose low pass, band pass or high pass with **TYPE**. Strait is aimed at ambient work and is deliberately simple: three pots, two pages, and every parameter takes CV through the disting NT's own mapping.
+Strait is a stereo filter whose two sides can drift apart. One filter sits on the left and one on the right, and both follow the same controls, so a mono sound comes out as a matched pair. Then **SPREAD** pulls the two cutoffs apart, left up and right down, and the sound opens out into the stereo field. Put a slow LFO on SPREAD and the filtering sways between the speakers. **DRIFT** lets each side wander on its own, so the image never quite stands still. Choose low pass, band pass or high pass with **TYPE**, and blend the filter with the dry sound using **MIX**. Strait is aimed at ambient work and is deliberately simple: three pots, two pages, and every parameter takes CV through the disting NT's own mapping.
 
 ## Installing
 Strait needs disting NT firmware **1.19 or newer**.
@@ -23,6 +23,7 @@ The online manual shows pictures of these screens:
 - Page 1, band pass, with Spread to the right. Only a narrow channel stays open at each cutoff.
 - Page 1, high pass. The middle fills in as an island and the water lies outside it.
 - Page 2: Drift, Slope and Type. The second page dot is lit.
+- Page 3: Mix, the dry/wet balance. The third page dot is lit.
 
 It is a night sea seen from the shore. The **open water is what the filter lets through** and the **land is what it stops**. The picture reads from the centre line outward as low to high frequency, so the shores sit further out as the cutoff rises.
 
@@ -33,7 +34,7 @@ It is a night sea seen from the shore. The **open water is what the filter lets 
 - **SLOPE** sets how steeply the cliffs fall: gentle at 12 dB per octave, steep at 24.
 - **DRIFT** makes each shore wander on its own. In its upper half the whole picture also weaves, like a worn tape.
 
-Along the bottom, a label names what each pot does right now, with a small bar for its value. The two squares at the bottom left are the page dots: the lit one is the page you are on.
+Along the bottom, a label names what each pot does right now, with a small bar for its value. The three small squares at the bottom left are the page dots: the lit one is the page you are on.
 
 ## The pots
 The three pots always edit three parameters, and which three depends on the page. **Push the centre pot** to step to the next page.
@@ -42,6 +43,7 @@ The three pots always edit three parameters, and which three depends on the page
 |---|---|---|---|
 | 1 | FREQ | RES | SPREAD |
 | 2 | DRIFT | SLOPE | TYPE |
+| 3 | MIX | | |
 
 After a page change each pot stays silent until you turn it to the value it now owns, so nothing jumps. Flip pages freely while playing.
 
@@ -60,6 +62,7 @@ Every parameter is a normal disting NT parameter, so all of it can be mapped to 
 | Drift | 0.0 to 100.0% | A slow, separate wander of each side's cutoff. At 0 it is off. |
 | Slope | 12 or 24 dB/oct | Roll-off steepness. |
 | Type | Low pass, Band pass, High pass | The filter response. |
+| Mix | 0.0 to 100.0% | Dry/wet. 100% is the filter alone (the default), 0% is the input alone. |
 | Left input | Input 1 | Audio in, left. |
 | Right input | Input 2 | Set to None for mono: the left input then feeds both sides. |
 | V/Oct input | None | Optional 1 V per octave pitch input for the cutoff. |
@@ -73,10 +76,15 @@ With SPREAD at 0 and DRIFT at 0, the left and right filters are identical, and t
 
 If **Right input** is set to None it copies the left input. A mono source patched only to the left input therefore comes out in stereo as soon as SPREAD or DRIFT moves.
 
+## Mix
+**Mix** blends the dry input with the filtered sound, and works as a plain linear balance: at 100% you hear only the filter, at 0% only the input, and in between the two are added in proportion. The dry sound is the input as patched, so with **Right input** set to None the right side's dry sound is the left input too. At 0% the output is exactly the input, sample for sample, and the filter keeps running underneath, so bringing Mix back up never starts from silence. Mix is smoothed, so a pot move or a CV on it never clicks.
+
+A band-pass or high-pass mixed with the dry sound gives the familiar phase-coloured, comb-like tones, which is part of the fun.
+
 ## Type and slope
 **Type** chooses which response comes out: low pass, band pass or high pass. Strait runs all three at once and picks one, so changing Type while a sound is playing never restarts the filter. The change crossfades over a few milliseconds, which keeps a stepped CV, an LFO or a pot sweep on Type free of clicks.
 
-**Slope** is 12 dB per octave by default, which is gentle and suits ambient work. At 24 dB per octave a second, fixed stage follows the filter for a steeper roll-off. All the resonance stays in the first stage, so the self-oscillating tone is just as clean.
+**Slope** is 12 dB per octave by default, which is gentle and suits ambient work. At 24 dB per octave a second, fixed stage follows the filter for a steeper roll-off. All the resonance stays in the first stage, so the self-oscillating tone is just as clean. Changing Slope while a sound is playing never clicks: going to 24 dB the second stage is brought up for a moment first and then faded in, and going back to 12 dB it fades out.
 
 ## Resonance and self-oscillation
 Resonance rises smoothly with Res and stays stable across the whole range, including when the cutoff is modulated at audio rate. In the top tenth of its travel (above about 90%) the filter begins to oscillate on its own and makes a clean sine tone on each side, at the cutoff. The tone follows the V/Oct input closely, so Strait can be played as a pair of sine oscillators, and Spread tunes the two tones apart. Low pass and high pass give the tone at about 5 V peak. Band pass is quieter.
@@ -92,7 +100,7 @@ Map any parameter to CV with the disting NT's Mappings. By default a mapping cov
 
 The **V/Oct input** is separate from the mappings. It adds to the cutoff at 1 V per octave, sample by sample and without smoothing, so it can be driven at audio rate for frequency modulation. A tracked pitch CV there, with Res above 90%, makes Strait a pair of sine oscillators.
 
-The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, Spread, Res or Drift glides instead of clicking.
+The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, Spread, Res, Drift or Mix glides instead of clicking.
 
 ## Troubleshooting
 **There is a tone and nothing is patched.** Res is in the self-oscillating part of its range. Turn it down.
@@ -109,7 +117,7 @@ The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, S
 | | |
 |---|---|
 | Format | disting NT algorithm, free, closed source |
-| Version | 0.1.1 |
+| Version | 0.1.2 |
 | Firmware | 1.19 or newer |
 | Cutoff | about 16 Hz to 16.7 kHz, plus V/Oct and CV |
 | Slope | 12 or 24 dB per octave |
