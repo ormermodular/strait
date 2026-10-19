@@ -1,6 +1,6 @@
 # Strait: disting NT manual
 
-Version 0.1.2.
+Version 0.1.3.
 
 Strait is a stereo filter whose two sides can drift apart. One filter sits on the left and one on the right, and both follow the same controls, so a mono sound comes out as a matched pair. Then **SPREAD** pulls the two cutoffs apart, left up and right down, and the sound opens out into the stereo field. Put a slow LFO on SPREAD and the filtering sways between the speakers. **DRIFT** lets each side wander on its own, so the image never quite stands still. Choose low pass, band pass or high pass with **TYPE**, and blend the filter with the dry sound using **MIX**. Strait is aimed at ambient work and is deliberately simple: three pots, two pages, and every parameter takes CV through the disting NT's own mapping.
 
@@ -82,7 +82,7 @@ If **Right input** is set to None it copies the left input. A mono source patche
 A band-pass or high-pass mixed with the dry sound gives the familiar phase-coloured, comb-like tones, which is part of the fun.
 
 ## Type and slope
-**Type** chooses which response comes out: low pass, band pass or high pass. Strait runs all three at once and picks one, so changing Type while a sound is playing never restarts the filter. The change crossfades over a few milliseconds, which keeps a stepped CV, an LFO or a pot sweep on Type free of clicks.
+**Type** chooses which response comes out: low pass, band pass or high pass. Strait runs all three at once and picks one, so changing Type while a sound is playing never restarts the filter. The change crossfades over a few milliseconds, which keeps a stepped CV, an LFO or a pot sweep on Type free of clicks. At 24 dB per octave there is a short extra delay (about a fiftieth of a second) before a change is heard, while the filter gets ready.
 
 **Slope** is 12 dB per octave by default, which is gentle and suits ambient work. At 24 dB per octave a second, fixed stage follows the filter for a steeper roll-off. All the resonance stays in the first stage, so the self-oscillating tone is just as clean. Changing Slope while a sound is playing never clicks: going to 24 dB the second stage is brought up for a moment first and then faded in, and going back to 12 dB it fades out.
 
@@ -117,7 +117,7 @@ The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, S
 | | |
 |---|---|
 | Format | disting NT algorithm, free, closed source |
-| Version | 0.1.2 |
+| Version | 0.1.3 |
 | Firmware | 1.19 or newer |
 | Cutoff | about 16 Hz to 16.7 kHz, plus V/Oct and CV |
 | Slope | 12 or 24 dB per octave |
