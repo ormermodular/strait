@@ -125,6 +125,6 @@ The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, S
 | Spread | up to one octave either way, two octaves between the sides |
 | Inputs | stereo audio in (right copies left when None), V/Oct |
 | Outputs | one stereo pair |
-| CPU | about 6% at 12 dB per octave, 12 to 15% at 24 dB per octave |
+| CPU | about 8% at 12 dB per octave, about 10% at 24 dB per octave |
 | Levels | audio nominally 5 V peak; peaks above 10 V gently limited |
 | Sample rates | any |
