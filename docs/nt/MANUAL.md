@@ -1,6 +1,6 @@
 # Strait: disting NT manual
 
-Version 0.1.3.
+Version 0.1.4.
 
 Strait is a stereo filter whose two sides can drift apart. One filter sits on the left and one on the right, and both follow the same controls, so a mono sound comes out as a matched pair. Then **SPREAD** pulls the two cutoffs apart, left up and right down, and the sound opens out into the stereo field. Put a slow LFO on SPREAD and the filtering sways between the speakers. **DRIFT** lets each side wander on its own, so the image never quite stands still. Choose low pass, band pass or high pass with **TYPE**, and blend the filter with the dry sound using **MIX**. Strait is aimed at ambient work and is deliberately simple: three pots, two pages, and every parameter takes CV through the disting NT's own mapping.
 
@@ -117,7 +117,7 @@ The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, S
 | | |
 |---|---|
 | Format | disting NT algorithm, free, closed source |
-| Version | 0.1.3 |
+| Version | 0.1.4 |
 | Firmware | 1.19 or newer |
 | Cutoff | about 16 Hz to 16.7 kHz, plus V/Oct and CV |
 | Slope | 12 or 24 dB per octave |
