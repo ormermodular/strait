@@ -15,7 +15,8 @@ Strait gives you one filter per side, both driven by the same controls, so a mon
 It is built for ambient work and kept deliberately simple: three dials, a handful of small knobs, and CV on everything that matters. 8 HP.
 
 <p align="center">
-  <a href="https://ormermodular.github.io/strait/vcv/">Manual</a> ·
+  <a href="https://ormermodular.github.io/strait/vcv/">VCV Rack manual</a> ·
+  <a href="https://ormermodular.github.io/strait/nt/">disting NT manual</a> ·
   <a href="https://library.vcvrack.com/">VCV Library</a> ·
   <a href="https://ormer.dev">Ormer Modular</a>
 </p>
