@@ -1,6 +1,6 @@
 # Strait: disting NT manual
 
-Version 0.1.3.
+Version 1.0.0.
 
 Strait is a stereo filter whose two sides can drift apart. One filter sits on the left and one on the right, and both follow the same controls, so a mono sound comes out as a matched pair. Then **SPREAD** pulls the two cutoffs apart, left up and right down, and the sound opens out into the stereo field. Put a slow LFO on SPREAD and the filtering sways between the speakers. **DRIFT** lets each side wander on its own, so the image never quite stands still. Choose low pass, band pass or high pass with **TYPE**, and blend the filter with the dry sound using **MIX**. Strait is aimed at ambient work and is deliberately simple: three pots, two pages, and every parameter takes CV through the disting NT's own mapping.
 
@@ -65,9 +65,10 @@ Every parameter is a normal disting NT parameter, so all of it can be mapped to 
 | Mix | 0.0 to 100.0% | Dry/wet. 100% is the filter alone (the default), 0% is the input alone. |
 | Left input | Input 1 | Audio in, left. |
 | Right input | Input 2 | Set to None for mono: the left input then feeds both sides. |
+| Left output | Output 1 | Set to None and the left side writes nothing. |
+| Right output | Output 2 | Set to None and both sides are summed into the left output. |
+| Output mode | Replace | Replace overwrites the output buses, Add sums onto them. One setting for both outputs. |
 | V/Oct input | None | Optional 1 V per octave pitch input for the cutoff. |
-| Left output | Output 1 | Mode defaults to Replace. |
-| Right output | Output 2 | Mode defaults to Replace. |
 
 The macros run at 0.1% resolution and every audible target glides inside the filter, so mapped steps and fast automation stay clean.
 
@@ -107,7 +108,7 @@ The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, S
 
 **Left and right sound the same.** That is by design when Spread and Drift are both at 0. Turn Spread or Drift.
 
-**The right output is silent.** The right side is fed from Right input, or from the left input if Right input is None. Check that something is patched to Input 1.
+**The right output is silent.** The right side is fed from Right input, or from the left input if Right input is None. Check that something is patched to Input 1, and that Right output is not set to None (which sums both sides into the left output).
 
 **The pots do nothing after a page change.** Each pot stays silent until you turn it to the value it now owns. Turn it past that value and it takes over.
 
@@ -117,7 +118,7 @@ The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, S
 | | |
 |---|---|
 | Format | disting NT algorithm, free, closed source |
-| Version | 0.1.3 |
+| Version | 1.0.0 |
 | Firmware | 1.19 or newer |
 | Cutoff | about 16 Hz to 16.7 kHz, plus V/Oct and CV |
 | Slope | 12 or 24 dB per octave |
