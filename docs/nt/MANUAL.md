@@ -11,6 +11,7 @@ Strait needs disting NT firmware **1.19 or newer**.
 2. Unzip it onto the MicroSD card, so that `strait.o` ends up in `programs/plug-ins/ormermodular/`.
 3. Restart the module, or rescan plug-ins from the settings menu.
 4. Add an algorithm, then choose **Strait** (tagged Effect and Filter/EQ).
+5. Every input and output starts on None, so Strait takes no bus until you route it: on the **Routing** page set Left input, and Left output (and Right output for stereo).
 
 Strait is free. It is closed source, and made by Ormer Modular in Guernsey.
 
@@ -63,10 +64,10 @@ Every parameter is a normal disting NT parameter, so all of it can be mapped to 
 | Slope | 12 or 24 dB/oct | Roll-off steepness. |
 | Type | Low pass, Band pass, High pass | The filter response. |
 | Mix | 0.0 to 100.0% | Dry/wet. 100% is the filter alone (the default), 0% is the input alone. |
-| Left input | Input 1 | Audio in, left. |
-| Right input | Input 2 | Set to None for mono: the left input then feeds both sides. |
-| Left output | Output 1 | Set to None and the left side writes nothing. |
-| Right output | Output 2 | Set to None and both sides are summed into the left output. |
+| Left input | None | Audio in, left. With None Strait is fed silence (it can still sing at high Res). |
+| Right input | None | Set to None for mono: the left input then feeds both sides. |
+| Left output | None | Set to None and the left side writes nothing. |
+| Right output | None | Set to None and both sides are summed into the left output. |
 | Output mode | Replace | Replace overwrites the output buses, Add sums onto them. One setting for both outputs. |
 | V/Oct input | None | Optional 1 V per octave pitch input for the cutoff. |
 
@@ -104,11 +105,13 @@ The **V/Oct input** is separate from the mappings. It adds to the cutoff at 1 V 
 The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, Spread, Res, Drift or Mix glides instead of clicking.
 
 ## Troubleshooting
+**Nothing comes out.** Every input and output starts on None. On the Routing page choose a bus for Left input and for Left output.
+
 **There is a tone and nothing is patched.** Res is in the self-oscillating part of its range. Turn it down.
 
 **Left and right sound the same.** That is by design when Spread and Drift are both at 0. Turn Spread or Drift.
 
-**The right output is silent.** The right side is fed from Right input, or from the left input if Right input is None. Check that something is patched to Input 1, and that Right output is not set to None (which sums both sides into the left output).
+**The right output is silent.** The right side is fed from Right input, or from the left input if Right input is None. Check that Left input is routed to the bus carrying your signal, and that Right output is not set to None (which sums both sides into the left output).
 
 **The pots do nothing after a page change.** Each pot stays silent until you turn it to the value it now owns. Turn it past that value and it takes over.
 
