@@ -10,7 +10,7 @@
 
 Strait gives you one filter per side, both driven by the same controls, so a mono sound comes out as a matched pair. Then **SPREAD** pulls the left and right cutoffs apart, up to an octave each way, and the sound opens out across the speakers. Put a slow LFO on SPREAD and the filtering sways from side to side.
 
-**DRIFT** lets each side wander on its own, slowly, so the stereo image never quite stands still. Low pass, band pass and high pass are all there at once, on separate left and right outputs, with no mode switch. Turn **RES** to the top and the filter sings by itself, a clean pair of tones that follow V/OCT.
+**DRIFT** lets each side wander on its own, slowly, so the stereo image never quite stands still. In the VCV module low pass, band pass and high pass are all there at once, on separate left and right outputs, with no mode switch; on the disting NT a Type parameter picks one of the three. Turn **RES** to the top and the filter sings by itself, a clean pair of tones that follow V/OCT.
 
 It is built for ambient work and kept deliberately simple: three dials, a handful of small knobs, and CV on everything that matters. 8 HP.
 
@@ -18,7 +18,9 @@ It is built for ambient work and kept deliberately simple: three dials, a handfu
 
 ## Installing
 
-Strait is free. Open the [VCV Library](https://library.vcvrack.com/), find **Strait** by Ormer Modular, and subscribe. It appears in Rack's module browser the next time Rack starts. It needs VCV Rack 2 (Free or Pro) on Windows, macOS or Linux.
+**disting NT.** Strait needs disting NT [firmware 1.19 or newer](https://www.expert-sleepers.co.uk/distingNTfirmwareupdates.html). Download `strait-plugin.zip` from the latest release, unzip it at the root of the SD card (it installs `strait.o` at `/programs/plug-ins/ormermodular/strait.o`), restart the module or remount the card, then add Strait.
+
+**VCV Rack.** Strait is free. Open the [VCV Library](https://library.vcvrack.com/), find **Strait** by Ormer Modular, and subscribe. It appears in Rack's module browser the next time Rack starts. It needs VCV Rack 2 (Free or Pro) on Windows, macOS or Linux.
 
 The manual covers every control, the CV scales and the right-click menu.
 

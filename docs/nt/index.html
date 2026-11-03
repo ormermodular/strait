@@ -113,7 +113,7 @@
   <header>
     <div class="eyebrow">Ormer Modular · made in Guernsey</div>
     <h1>STRAIT</h1>
-    <p class="vstamp">USER MANUAL · DISTING NT · v0.1.3</p>
+    <p class="vstamp">USER MANUAL · DISTING NT · v1.0.0</p>
     <p class="lede">Strait is a stereo filter whose two sides can drift apart. One filter sits on the left and one on the right, and both follow the same controls, so a mono sound comes out as a matched pair. Then <b>SPREAD</b> pulls the two cutoffs apart, left up and right down, and the sound opens out into the stereo field. Put a slow LFO on SPREAD and the filtering sways between the speakers. <b>DRIFT</b> lets each side wander on its own, so the image never quite stands still. Choose low pass, band pass or high pass with <b>TYPE</b>, and blend the filter with the dry sound using <b>MIX</b>. Strait is aimed at ambient work and is deliberately simple: three pots, two pages, and every parameter takes CV through the disting NT's own mapping.</p>
     <nav class="toc"><a href="#install">Installing</a><a href="#screen">The screen</a><a href="#pots">The pots</a><a href="#params">Parameters</a><a href="#stereo">A matched pair</a><a href="#mix">Mix</a><a href="#type">Type and slope</a><a href="#res">Resonance and self-oscillation</a><a href="#cv">CV and modulation</a><a href="#trouble">Troubleshooting</a><a href="#specs">Specifications</a></nav>
   </header>
@@ -121,7 +121,7 @@
   <section id="install">
     <h2>Installing</h2>
     <p>Strait needs disting NT firmware <b>1.19 or newer</b>.</p>
-    <ol><li>Get <code>strait-plugin.zip</code> from the latest release on the Strait GitHub page, or add Strait from the disting NT Plugin Gallery.</li><li>Unzip it onto the MicroSD card, so that <code>strait.o</code> ends up in <code>programs/plug-ins/ormermodular/</code>.</li><li>Restart the module, or rescan plug-ins from the settings menu.</li><li>Add an algorithm, then choose <b>Strait</b> (tagged Effect and Filter/EQ).</li></ol>
+    <ol><li>Get <code>strait-plugin.zip</code> from the latest release on the Strait GitHub page, or add Strait from the disting NT Plugin Gallery.</li><li>Unzip it onto the MicroSD card, so that <code>strait.o</code> ends up in <code>programs/plug-ins/ormermodular/</code>.</li><li>Restart the module, or rescan plug-ins from the settings menu.</li><li>Add an algorithm, then choose <b>Strait</b> (tagged Effect and Filter/EQ).</li><li>Every input and output starts on None, so Strait takes no bus until you route it: on the <b>Routing</b> page set Left input, and Left output (and Right output for stereo).</li></ol>
     <p>Strait is free. It is closed source, and made by Ormer Modular in Guernsey.</p>
   </section>
 
@@ -146,7 +146,7 @@
   <section id="params">
     <h2>Parameters</h2>
     <p>Every parameter is a normal disting NT parameter, so all of it can be mapped to CV, MIDI or i2c and automated through the module's own Mappings, like a built-in algorithm.</p>
-    <div class="tablewrap wide"><table><tr><th>Parameter</th><th>Range</th><th>Notes</th></tr><tr><td>Freq</td><td>about 16 Hz to 16.7 kHz</td><td>The cutoff, shown in Hz, for both sides together.</td></tr><tr><td>Res</td><td>0.0 to 100.0%</td><td>Resonance, for both sides. Self-oscillation starts above about 90%.</td></tr><tr><td>Spread</td><td>-100.0 to +100.0%</td><td>Moves the two cutoffs in opposite directions, by up to an octave each. At 0 they are the same.</td></tr><tr><td>Drift</td><td>0.0 to 100.0%</td><td>A slow, separate wander of each side's cutoff. At 0 it is off.</td></tr><tr><td>Slope</td><td>12 or 24 dB/oct</td><td>Roll-off steepness.</td></tr><tr><td>Type</td><td>Low pass, Band pass, High pass</td><td>The filter response.</td></tr><tr><td>Mix</td><td>0.0 to 100.0%</td><td>Dry/wet. 100% is the filter alone (the default), 0% is the input alone.</td></tr><tr><td>Left input</td><td>Input 1</td><td>Audio in, left.</td></tr><tr><td>Right input</td><td>Input 2</td><td>Set to None for mono: the left input then feeds both sides.</td></tr><tr><td>V/Oct input</td><td>None</td><td>Optional 1 V per octave pitch input for the cutoff.</td></tr><tr><td>Left output</td><td>Output 1</td><td>Mode defaults to Replace.</td></tr><tr><td>Right output</td><td>Output 2</td><td>Mode defaults to Replace.</td></tr></table></div>
+    <div class="tablewrap wide"><table><tr><th>Parameter</th><th>Range</th><th>Notes</th></tr><tr><td>Freq</td><td>about 16 Hz to 16.7 kHz</td><td>The cutoff, shown in Hz, for both sides together.</td></tr><tr><td>Res</td><td>0.0 to 100.0%</td><td>Resonance, for both sides. Self-oscillation starts above about 90%.</td></tr><tr><td>Spread</td><td>-100.0 to +100.0%</td><td>Moves the two cutoffs in opposite directions, by up to an octave each. At 0 they are the same.</td></tr><tr><td>Drift</td><td>0.0 to 100.0%</td><td>A slow, separate wander of each side's cutoff. At 0 it is off.</td></tr><tr><td>Slope</td><td>12 or 24 dB/oct</td><td>Roll-off steepness.</td></tr><tr><td>Type</td><td>Low pass, Band pass, High pass</td><td>The filter response.</td></tr><tr><td>Mix</td><td>0.0 to 100.0%</td><td>Dry/wet. 100% is the filter alone (the default), 0% is the input alone.</td></tr><tr><td>Left input</td><td>None</td><td>Audio in, left. With None Strait is fed silence (it can still sing at high Res).</td></tr><tr><td>Right input</td><td>None</td><td>Set to None for mono: the left input then feeds both sides.</td></tr><tr><td>Left output</td><td>None</td><td>Set to None and the left side writes nothing.</td></tr><tr><td>Right output</td><td>None</td><td>Set to None and both sides are summed into the left output.</td></tr><tr><td>Output mode</td><td>Replace</td><td>Replace overwrites the output buses, Add sums onto them. One setting for both outputs.</td></tr><tr><td>V/Oct input</td><td>None</td><td>Optional 1 V per octave pitch input for the cutoff.</td></tr></table></div>
     <p>The macros run at 0.1% resolution and every audible target glides inside the filter, so mapped steps and fast automation stay clean.</p>
   </section>
 
@@ -185,16 +185,17 @@
 
   <section id="trouble">
     <h2>Troubleshooting</h2>
+    <p><b>Nothing comes out.</b> Every input and output starts on None. On the Routing page choose a bus for Left input and for Left output.</p>
     <p><b>There is a tone and nothing is patched.</b> Res is in the self-oscillating part of its range. Turn it down.</p>
     <p><b>Left and right sound the same.</b> That is by design when Spread and Drift are both at 0. Turn Spread or Drift.</p>
-    <p><b>The right output is silent.</b> The right side is fed from Right input, or from the left input if Right input is None. Check that something is patched to Input 1.</p>
+    <p><b>The right output is silent.</b> The right side is fed from Right input, or from the left input if Right input is None. Check that Left input is routed to the bus carrying your signal, and that Right output is not set to None (which sums both sides into the left output).</p>
     <p><b>The pots do nothing after a page change.</b> Each pot stays silent until you turn it to the value it now owns. Turn it past that value and it takes over.</p>
     <p><b>Strait does not appear in the algorithm list.</b> Check the firmware is 1.19 or newer and that <code>strait.o</code> is in <code>programs/plug-ins/ormermodular/</code> on the card.</p>
   </section>
 
   <section id="specs">
     <h2>Specifications</h2>
-    <div class="tablewrap"><table><tr><th></th><th></th></tr><tr><td>Format</td><td>disting NT algorithm, free, closed source</td></tr><tr><td>Version</td><td>0.1.3</td></tr><tr><td>Firmware</td><td>1.19 or newer</td></tr><tr><td>Cutoff</td><td>about 16 Hz to 16.7 kHz, plus V/Oct and CV</td></tr><tr><td>Slope</td><td>12 or 24 dB per octave</td></tr><tr><td>Type</td><td>low pass, band pass or high pass</td></tr><tr><td>Spread</td><td>up to one octave either way, two octaves between the sides</td></tr><tr><td>Inputs</td><td>stereo audio in (right copies left when None), V/Oct</td></tr><tr><td>Outputs</td><td>one stereo pair</td></tr><tr><td>CPU</td><td>about 8% at 12 dB per octave, about 10% at 24 dB per octave</td></tr><tr><td>Levels</td><td>audio nominally 5 V peak; peaks above 10 V gently limited</td></tr><tr><td>Sample rates</td><td>any</td></tr></table></div>
+    <div class="tablewrap"><table><tr><th></th><th></th></tr><tr><td>Format</td><td>disting NT algorithm, free, closed source</td></tr><tr><td>Version</td><td>1.0.0</td></tr><tr><td>Firmware</td><td>1.19 or newer</td></tr><tr><td>Cutoff</td><td>about 16 Hz to 16.7 kHz, plus V/Oct and CV</td></tr><tr><td>Slope</td><td>12 or 24 dB per octave</td></tr><tr><td>Type</td><td>low pass, band pass or high pass</td></tr><tr><td>Spread</td><td>up to one octave either way, two octaves between the sides</td></tr><tr><td>Inputs</td><td>stereo audio in (right copies left when None), V/Oct</td></tr><tr><td>Outputs</td><td>one stereo pair</td></tr><tr><td>CPU</td><td>about 8% at 12 dB per octave, about 10% at 24 dB per octave</td></tr><tr><td>Levels</td><td>audio nominally 5 V peak; peaks above 10 V gently limited</td></tr><tr><td>Sample rates</td><td>any</td></tr></table></div>
   </section>
 
   <footer>
