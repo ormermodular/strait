@@ -5,106 +5,123 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Strait disting NT Manual</title>
 <style>
-  /* Single look, the Ormer Modular manual house style: night-sea blue-grey with the lamp amber.
-     Layout: one centred column; the interactive panel is the hero. */
   :root{
-    --bg:#0b1119; --panel:#1c242e; --panel-edge:#39424e; --card:#141b24; --rule:#2c3641;
-    --ink:#c9d9e6; --strong:#e8eef5; --muted:#84939f; --accent:#e2a24a;
+    --bg:#0b1119; --panel:#1c242e; --panel-edge:#39424e;
+    --ink:#c9d9e6; --muted:#84939f; --accent:#e2a24a;
+    --oled:#04070b; --glow:rgba(140,190,255,.13);
     --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
     color-scheme:dark;
   }
   *{box-sizing:border-box}
-  body{background:var(--bg);color:var(--ink);font-family:var(--mono);margin:0;padding-block:40px 90px;padding-inline:20px}
+  body{background:var(--bg);color:var(--ink);font-family:var(--mono);margin:0;padding:40px 20px 90px}
   .wrap{max-width:840px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
   .eyebrow{color:var(--accent);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
   h1{font-size:30px;font-weight:700;color:#eef2f6;margin:10px 0 4px;letter-spacing:.14em;text-wrap:balance}
   .vstamp{color:var(--muted);font-size:11px;letter-spacing:.14em;margin:0 0 10px}
   .lede{color:var(--muted);font-size:13.5px;line-height:1.7;max-width:64ch;margin:0}
   .lede b{color:var(--ink)}
-  h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;font-weight:600;text-wrap:balance}
-  h3{font-size:13px;color:var(--strong);margin:22px 0 8px;font-weight:700;letter-spacing:.02em}
+  h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;font-weight:600}
+  h3{font-size:13px;color:#e8eef5;margin:22px 0 8px;font-weight:700;letter-spacing:.02em}
   section>h3:first-of-type{margin-top:0}
   p{font-size:12.5px;line-height:1.75;color:var(--muted);margin:0 0 10px;max-width:70ch}
-  p b,li b,dd b{color:var(--ink)}
-  p code,li code,td code,dd code{color:var(--accent);background:rgba(226,162,74,.08);padding:0 4px;border-radius:3px;font-size:.95em}
+  p b,li b{color:var(--ink)}
+  p code,li code,td code{color:var(--accent);background:rgba(226,162,74,.08);padding:0 4px;border-radius:3px;font-size:.95em}
   ul,ol{margin:0 0 10px;padding-left:20px;display:flex;flex-direction:column;gap:7px}
-  li{font-size:12.5px;line-height:1.7;color:var(--muted);min-width:0}
+  li{font-size:12.5px;line-height:1.7;color:var(--muted)}
   li::marker{color:var(--accent)}
   a{color:var(--accent)}
-  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
   .toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
   .toc a{color:var(--ink);text-decoration:none;font-size:10.5px;letter-spacing:.08em;
-    border:1px solid var(--panel-edge);border-radius:999px;padding:5px 12px;background:var(--card)}
+    border:1px solid var(--panel-edge);border-radius:999px;padding:5px 12px;background:#141b24}
   .toc a:hover,.toc a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
 
-  /* interactive panel */
-  .stage{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:28px;align-items:start}
-  @media (max-width:700px){.stage{grid-template-columns:minmax(0,1fr)}}
-  .figcol{display:flex;flex-direction:column;gap:12px;max-width:360px;width:100%;margin-inline:auto}
-  .seg{display:flex;gap:0;border:1px solid var(--panel-edge);border-radius:999px;overflow:hidden;align-self:flex-start}
-  .seg button{font:inherit;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;
-    background:var(--card);color:var(--muted);border:0;cursor:pointer}
-  .seg button+button{border-left:1px solid var(--panel-edge)}
-  .seg button[aria-pressed="true"]{background:var(--accent);color:#1a1206;font-weight:700}
-  .fig{position:relative;border-radius:6px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.5);
-    aspect-ratio:960/1518;background:#171717}
-  .fig img{display:block;width:100%;height:100%}
-  [hidden]{display:none!important}
-  .hs{position:absolute;transform:translate(-50%,-50%);aspect-ratio:1;border-radius:50%;padding:0;
-    border:2px solid transparent;background:transparent;cursor:pointer}
-  .hs:hover{border-color:rgba(226,162,74,.55)}
-  .hs[aria-pressed="true"]{border-color:var(--accent);background:rgba(226,162,74,.16)}
-  .hs.rect{border-radius:4px;aspect-ratio:auto;transform:none}
-  .info{border:1px solid var(--panel-edge);border-radius:10px;background:var(--card);padding:18px 20px;min-height:12em}
-  .info .kind{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
-  .info h3{margin:0 0 10px;font-size:16px;letter-spacing:.1em}
-  .info p{font-size:12.5px}
-  .hint{font-size:11px;color:var(--muted);margin-top:10px}
+  .panel{background:linear-gradient(180deg,#232b35,#1a212a);border:1px solid var(--panel-edge);
+    border-radius:12px;padding:22px 26px 24px;position:relative;
+    box-shadow:0 20px 50px rgba(0,0,0,.45)}
+  .screw{position:absolute;width:8px;height:8px;border-radius:50%;background:#0f141b;border:1px solid #444f5c}
+  .screw.tl{top:10px;left:10px}.screw.tr{top:10px;right:10px}
+  .screw.bl{bottom:10px;left:10px}.screw.br{bottom:10px;right:10px}
+  .screenframe{background:#0e141c;border:1px solid #05080c;border-radius:6px;padding:10px;
+    box-shadow:inset 0 2px 10px rgba(0,0,0,.8), 0 0 34px var(--glow)}
+  canvas{display:block;width:100%;image-rendering:pixelated;background:var(--oled)}
+  canvas.screen{aspect-ratio:4/1}
+  .cap{font-size:11.5px;color:var(--muted);line-height:1.65;margin-top:10px;max-width:70ch}
+  .cap b{color:var(--ink)}
+  .potrow{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
+  @media (max-width:560px){.potrow{grid-template-columns:1fr}}
+  .potrow label{display:flex;flex-direction:column;gap:6px;font-size:10.5px;letter-spacing:.16em;
+    color:var(--accent);text-transform:uppercase}
+  .potrow input[type=range]{width:100%;accent-color:var(--accent)}
 
   table{border-collapse:collapse;width:100%;font-size:12px}
   th{color:var(--muted);font-weight:600;text-align:left;font-size:10px;text-transform:uppercase;
-    letter-spacing:.14em;padding:8px 12px;border-bottom:1px solid var(--rule)}
-  td{padding:8px 12px;border-bottom:1px solid var(--panel);vertical-align:top;line-height:1.6;color:var(--muted)}
-  td:first-child{color:var(--strong);font-weight:700;white-space:nowrap}
+    letter-spacing:.14em;padding:8px 12px;border-bottom:1px solid #2c3641}
+  td{padding:8px 12px;border-bottom:1px solid #1c242e;vertical-align:top;line-height:1.6;color:var(--muted)}
+  td:first-child{color:#e8eef5;font-weight:700;white-space:nowrap}
   td:nth-child(2){color:var(--accent);white-space:nowrap}
   .tablewrap{overflow-x:auto}
   .wide td:nth-child(2){white-space:normal}
 
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
-  .card{border:1px solid var(--panel-edge);border-radius:10px;background:var(--card);padding:16px 18px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .card{border:1px solid var(--panel-edge);border-radius:10px;background:#141b24;padding:16px 18px}
   .card h4{margin:0 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
   .card p{margin:0;font-size:12px}
-  .card .set{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--rule);
+  .card .set{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed #2c3641;
     font-size:11px;color:#a9b4c0;line-height:1.8}
   .card .set b{color:var(--accent);font-weight:600}
 
   .note{border:1px solid var(--panel-edge);border-left:3px solid var(--accent);border-radius:8px;
-    background:var(--card);padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.7;max-width:none}
+    background:#141b24;padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.7;max-width:none}
   .note b{color:var(--ink)}
 
+  .pages{display:flex;flex-direction:column;margin:18px 0 6px}
+  .pagecard{border:1px solid var(--panel-edge);border-radius:10px;background:#141b24;padding:16px 20px 16px}
+  .pagehead{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .pageno{color:var(--accent);font-size:10px;letter-spacing:.2em;border:1px solid var(--accent);
+    border-radius:3px;padding:2px 7px;white-space:nowrap}
+  .pagename{color:#e8eef5;font-weight:700;font-size:13px}
+  .pagewhat{color:var(--muted);font-size:11.5px;margin-left:auto;text-align:right}
+  .potline{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .potviz{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;
+    border-top:1px dashed #2c3641;padding-top:12px}
+  .potdot{width:30px;height:30px;border-radius:50%;border:2px solid var(--muted);position:relative;flex:none}
+  .potdot::after{content:"";position:absolute;left:50%;top:2px;width:2px;height:9px;
+    background:var(--muted);transform:translateX(-50%)}
+  .potdot.push{border-color:var(--accent)}
+  .potdot.push::after{background:var(--accent)}
+  .potviz b{color:#e8eef5;font-size:12px;letter-spacing:.08em}
+  .potviz small{color:var(--muted);font-size:10.5px;line-height:1.5}
+  .potviz .pushhint{color:var(--accent);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase}
+  .pagearrow{display:flex;align-items:center;gap:10px;color:var(--accent);
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:6px 0}
+  .pagearrow::before{content:"";width:2px;height:18px;background:var(--panel-edge);margin-left:34px}
+
   .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 14px}
-  .flow span{border:1px solid var(--panel-edge);background:var(--card);border-radius:6px;
+  .flow span{border:1px solid var(--panel-edge);background:#141b24;border-radius:6px;
     padding:5px 10px;font-size:10.5px;letter-spacing:.08em;color:var(--ink)}
   .flow em{color:var(--accent);font-style:normal;font-size:11px}
 
-  .qa dt{font-size:12.5px;color:var(--strong);font-weight:700;margin-top:14px}
+  .qa dt{font-size:12.5px;color:#e8eef5;font-weight:700;margin-top:14px}
   .qa dt:first-child{margin-top:0}
   .qa dd{margin:4px 0 0;font-size:12.5px;line-height:1.7;color:var(--muted)}
 
-  footer{border-top:1px solid var(--panel);padding-top:22px;text-align:center}
+  footer{border-top:1px solid #1c242e;padding-top:22px;text-align:center}
   footer p{max-width:none;margin:0 0 6px}
   .fin{color:var(--accent);letter-spacing:.3em;font-size:10px;text-transform:uppercase}
 
-  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:18px}
-  .steps table td:first-child{white-space:nowrap}
-  .steps td:nth-child(3),.steps td:nth-child(4){color:var(--muted);white-space:nowrap}
-
-  .shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
-  .shots figure{margin:0}
-  .shots img{width:100%;height:auto;display:block;image-rendering:pixelated;border:1px solid #28343f;border-radius:6px;background:#000}
-  .shots figcaption{font-size:12px;color:#84939f;margin-top:6px;line-height:1.5}
-  @media (max-width:700px){.shots{grid-template-columns:minmax(0,1fr)}}
+  .potrow{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px;align-items:end}
+  @media (max-width:560px){.potrow{grid-template-columns:1fr}}
+  .seg{display:flex;border:1px solid var(--panel-edge);border-radius:999px;overflow:hidden;width:max-content;max-width:100%;flex-wrap:wrap}
+  .seg button{font:inherit;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:#141b24;color:var(--muted);border:0;cursor:pointer}
+  .seg button+button{border-left:1px solid var(--panel-edge)}
+  .seg button[aria-pressed="true"]{background:var(--accent);color:#1a1206;font-weight:700}
+  .seglabel{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+  .potrow .seglabel{margin-top:0}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .ctl td:first-child{white-space:normal;width:34%}
+  .ctl td:nth-child(2){color:var(--muted);white-space:normal}
+  .wide td:nth-child(2){white-space:nowrap}
 </style>
 </head>
 <body>
@@ -113,74 +130,76 @@
   <header>
     <div class="eyebrow">Ormer Modular · made in Guernsey</div>
     <h1>STRAIT</h1>
-    <p class="vstamp">USER MANUAL · DISTING NT · v1.0.0</p>
-    <p class="lede">Strait is a stereo filter whose two sides can drift apart. One filter sits on the left and one on the right, and both follow the same controls, so a mono sound comes out as a matched pair. Then <b>SPREAD</b> pulls the two cutoffs apart, left up and right down, and the sound opens out into the stereo field. Put a slow LFO on SPREAD and the filtering sways between the speakers. <b>DRIFT</b> lets each side wander on its own, so the image never quite stands still. Choose low pass, band pass or high pass with <b>TYPE</b>, and blend the filter with the dry sound using <b>MIX</b>. Strait is aimed at ambient work and is deliberately simple: three pots, two pages, and every parameter takes CV through the disting NT's own mapping.</p>
-    <nav class="toc"><a href="#install">Installing</a><a href="#screen">The screen</a><a href="#pots">The pots</a><a href="#params">Parameters</a><a href="#stereo">A matched pair</a><a href="#mix">Mix</a><a href="#type">Type and slope</a><a href="#res">Resonance and self-oscillation</a><a href="#cv">CV and modulation</a><a href="#trouble">Troubleshooting</a><a href="#specs">Specifications</a></nav>
+    <p class="vstamp">USER MANUAL · EXPERT SLEEPERS DISTING NT · v1.0.0</p>
+    <p class="lede">Strait is a stereo filter for the Expert Sleepers disting NT whose two sides can drift apart. One filter sits on the left and one on the right, and both follow the same controls, so a mono sound comes out as a matched pair. Then <b>SPREAD</b> pulls the two cutoffs apart, left up and right down, and the sound opens out into the stereo field. Put a slow LFO on SPREAD and the filtering sways between the speakers. <b>DRIFT</b> lets each side wander on its own, so the image never quite stands still. Choose low pass, band pass or high pass with <b>TYPE</b>, and blend the filter with the dry sound using <b>MIX</b>. Strait is aimed at ambient work and is deliberately simple: three pots over three pages, and every parameter takes CV through the disting NT's own mapping.</p>
+    <nav class="toc"><a href="#screen">The screen</a><a href="#knobs">The three knobs</a><a href="#controls">Other controls</a><a href="#nt">On the disting NT</a><a href="#recipes">Field notes</a><a href="#trouble">Troubleshooting</a><a href="#specs">Specifications</a></nav>
   </header>
-
-  <section id="install">
-    <h2>Installing</h2>
-    <p>Strait needs disting NT firmware <b>1.19 or newer</b>.</p>
-    <ol><li>Get <code>strait-plugin.zip</code> from the latest release on the Strait GitHub page, or add Strait from the disting NT Plugin Gallery.</li><li>Unzip it onto the MicroSD card, so that <code>strait.o</code> ends up in <code>programs/plug-ins/ormermodular/</code>.</li><li>Restart the module, or rescan plug-ins from the settings menu.</li><li>Add an algorithm, then choose <b>Strait</b> (tagged Effect and Filter/EQ).</li><li>Every input and output starts on None, so Strait takes no bus until you route it: on the <b>Routing</b> page set Left input, and Left output (and Right output for stereo).</li></ol>
-    <p>Strait is free. It is closed source, and made by Ormer Modular in Guernsey.</p>
-  </section>
 
   <section id="screen">
     <h2>The screen</h2>
-    <p>The whole display belongs to Strait. There is no parameter line along the top; the screen is a small scene that shows what the filter is doing.</p>
-    <div class="shots"><figure><img alt="Page 1, low pass. The open water between the two shores is the passband." src="data:image/webp;base64,UklGRnIEAABXRUJQVlA4TGUEAAAv/8IvAEfjoG0kSWqn9+WPd+9oOGzbNpBEt3e//8J/Dts2ciTTvvj9txvmP6Y8dmijyDzPCwSIgUhBKpWiUuI4J0iJzvSxO7QSICjF7gATir+/qlSbNXDeiw9IiVaZ3awZCPj5udxAMQFiBFSlYBany5qBICZ2s4ZSfL4ut90cO40Q57kESqTu5yEmiDW7A2TChBv953lf172c9/L+PgwUbdtW3TY3ZWYI8wuzqdyGuczcxPT/3yDdB9LDviutFdF/OZAkKZLkqS1v3eTx3UNpYSFzjugm/K0X9aq+CwHu61v6q27CBVjRNyDAAy1lD9zRf+G2Tj4d4IGu6LoGuKXAz7A5nTXYhN90n8Yf6oINJ/RV/R7irsARDQAUcURXNNdJXYU9EHk6ALCid+FZnQS8rxcgwDV9Ww/oZxp/qAs2bMI/cEkj7sHz8Kle13dhRTcB+EZDmVzV9yD+dIAvYEWP6BmN+xImbcLv8DLEH+qCDScUAC7qUX0FIgV5Be5C8Ruq8uTX9HMofvJpOAfxk9MjG9pJqQ3jJf0F/tQP4QJswl96CorfUDVfd/4WJh2Dx1AQcF+PQ+ShJgAGjeyF2jy7Oic9cjOa0MOzoWmfDOIy6ONvUBbVAJIJg+4N1eWL1OmRvRCGtYxF9covaCYAlu5EXfADWPpv6b9lbdR0ltoHS5pu+no6Pa4RNwEAFpMAUkBPc0JfsKFtRG2e41kd/8tyQsPU8Px0Ot2fyNwRjhy1eNeSAFXWsMUBXU/DFG38b35qOKioe9HG/xq7hnun0+/+JlcAULuijf81Qw0HhpPnv2jjf01Yw75vDouWjtibE2pUw96tYd7Q7I0mCdAMNey/GqZo43+NWMMemIYp2vhfA9ewV3awpkUb/2uRGvbBf7BkXYo2xteAGZzszQljfI2fAcbenDDG13IZJOzNCWN8rZ6ebm9OGOPrMOmt9uaEMb5ulv73n1kRTZLk/MKfhME/S89l0DGnlEGtn2kGKbiud+Qs5dWxZDAnMqjRkZBBpzgyMxj/G/5PXqquFp/VzKClPmuXQadoSgZVymD8b/g/eVRvofhvrWySH+Ko0UAySKTswmy11Gw74wsixfF0FtmFFvk7GMxqti0y9ionWfELIu3QAJ83exc2AfhBr2mR1YFvwQv6o/4BH2hLfUvYthbcmXh8Y+MzmV4jjTo+ydxVlcePuh2NL478kt6AACv6n34Hr2kAAEhTADVyBQKUWh34ZTgOb8B9DW2TsgO/Akc0tEqugFpwVeWlFkf+lX4Mz+iKvgn79bomZDYB+ASKrw78I31dAzzUllJ84PGNjbeF+CRzV1VeavjX9LAehMjagh9BKmN3OgEyAID4Y5jDk0/DOSh48m2dz8+y1vrksgOPb2x8toOdn+HP9peqFZzk5JDLDv+sbgJwXSs7OYMES6nVgb+oP8ETfQda54bKDjy+sfHQEolPMqLs8O/BcxDgMazCE63m684pjfrkFByCMCDkf3sLsgMA"><figcaption>Page 1, low pass. The open water between the two shores is the passband.</figcaption></figure><figure><img alt="Page 1, band pass, with Spread to the right. Only a narrow channel stays open at each cutoff." src="data:image/webp;base64,UklGRvIEAABXRUJQVlA4TOUEAAAv/8IvAEfjqI0kSUpnzvUb/mBnlwbDtm0jiekD3P77Xh23bSRJpqu6Z/e5+cd6zH+kPGZ1hqLGc95AgAhEFVRVVVFV4lgHVImu0cdmdUqAoBSbBQnF31+rqs6YAee+PKBKdKrGZswIBPz8XB6gSICIgFZVkInTNSMQRCJixgxK8fm6PDbjmCNCnOsqKFF1nxeRIGZsFtQoEnb0H899O+/xfh8Gita2t20bJuneu9mb2duru83eSffeMVvf/zXYEAmRAC2T0vtG9B8S2zaSJPnXF7rTpZnduWfyK+Yy54hW8Bdc1Kv6LhRwX9/SX7SCC7Ckb0ABD7URu+CO/qO3dfPhAA91SVe1gFsK/ATVlrACFfwK+zS8q3M2OKGv6nca5goc0QKAOhzRJZ3ISV2GXRA4HABY0ruwRzcDvK8XoIBr+rYe0M80vKtzNqjgb7ikAe7B8/CpXtd3YUkrAL6Gokmu6nsQPhzgC1jSI3pGw3wJm6ngN3gZwrs6Z4MTCgAX9ai+AgFBXoG7UH9DMSe/pp9D/cmn4RyEJ4+PWNNeipoYXtKf9Q/9EC5ABX/qKai/oTj3O38DmzkGT7QmwH09DoFdHQEw08he6MzRdTnjI24GU2zDs6bjPkoIU8J2/AplXg3AaIKZ7oa6cif1+Ii9UMzWsjPJTl7UEQALd6LO+QFY+M/Cfxa1oY5MUfPIer08VTWbto4T+X9LzKBoZZM8nRBzJEKg+GNAyljJnWhATA0T/R5GsTL8p1dMzqBoSdIw75NVdfhPAqpxfktI3jsyT0W09GiY/dHlhFgCMPwHANYnhJ7AVERLg4bJIxmiAcN/YmrYFdIsWgo1TA+dFm34T6o03AsAkEHR9jZJBjXcCwDQLdGG/3RFw/ZMzqxoQBo07OLklos2/CcNGk6RDIqWQg07QdtEG/6TQg1jkiPR0q9hO0mJaHsBGP4DAB36M6wRWRAtdxq2hGSIBgz/SYOG6RetF2mYEtGG/yRPwwiupUG03qJhBNc6KtoAn8SfyghvWJM70frhmBngk4ZT2SGyI1o/HDMDfFJ4KttM+kXrh2NmgE/6T2WrSLBo/XDMDPDJ3amcLikUrR+OmQE+eT+VkUmSaP1wzIz7AGK+I9veJKQfjpmREefn/mRR+Pf42zH+Hn8l9JnKnIcSxotsh3MeClj4TwRKaP8NjCUk5sbM7NwaWcLwn9n/5MXmdPFWzRIibyhfzzLIXT1LiEkJw39m/4sM9JmXnUQ+iaNDBSlhJMUGtJ/tSP3VTgy8MQ7r08gGRPiZhhJc9rbVP53sjZjIA2/cQQJuN3sXKgC+12tap3Xg/+kL+gP8rh9opp44ULPgDzXcsfENiF+9JJU6XMmJrSoPF/+BBoq/AZf0BhSwpP/qt/CaFgAA4xSADnEFCmjUOvDLcBzegPta5CZNC76lY+NZyRVQa7aqvFHjyL/Sj2G3LumbsF+v64iMCoBPoH7rwD/S17WAR5Ap6hc83LHxXBCu5MRWlTcq/jU9rAch0LbgxzCWYWNLKKAEAAjvQwsnn4ZzUHPybW3nraydnty04OGOjU+3sO0p/nRfVK1mJTcXuWnxz2oFwHWNNrmEERaNWgf+ov4Iz+AdyM6GmhY83LHxIhMJVzJA0+Lfg+eggCe6DM8gzv3OYxq6k1NwCIoZQnbsmZMdAAA="><figcaption>Page 1, band pass, with Spread to the right. Only a narrow channel stays open at each cutoff.</figcaption></figure><figure><img alt="Page 1, high pass. The middle fills in as an island and the water lies outside it." src="data:image/webp;base64,UklGRloEAABXRUJQVlA4TE0EAAAv/8IvAEfjoG0kSWqn9+WPd+9oOGzbNpBEt3e//8J/Dts2ciTTvvj9txvmP6Y8dmijyDzPCwSIgUhBKpWiUuI4J0iJzvSxO7QSICjF7gATir+/qlSbNXDeiw9IiVaZ3awZCPj5udxAMQFiBFSlYBany5qBICZ2s4ZSfL4ut90cO40Q57kESqTu5yEmiDW7A2TChBv953lf172c9/L+PgwUrW1P20iaZWYYZg9zaXl3mGeZeaZ0/9fQI0NiyUmq5H0j+g8JgNu2zeHnbUTITjrwC3OZdUTX4R+9qFf1fQhwX9/R33QdLsCSvgUBHmgr9sAd/Q9u6xFdB+CBLumqBrilwC+wDgCwAuvwu+7T+KHO2eCEvq4/QJwrcEQDAE04oktay0ldhj0QOR0AWNK78LzuBPhQL0CAa/quHtAvNH6oczZYh3/hkka4By/C53pd34clXQfgWw1tdFU/gPjpAF/Bkh7RMxrna9jJOvwBr0L8UOdscEIB4KIe1dcgEpDX4C4031CXk9/QL6H55NNwDuKTyyPWdJCiJoZX9Ff4Sz+GC7AOf+spaL6hbl53/g52cgweQ0OA+3ocIodaADDV0F7ozdn1WeURN6MKE7jWtOyjgjgVTOI3KPNqAIoJprob6suL1OUReyFM1zSbZJYntQBg4Y7UOT8AC/9Z+M+iHp5F9aRGpvPjEgUuai6CBlRtVBvDxI+TkpQnqqo5ChrQZQzTGY2bAADlKbkIWkpiWF6T7KD1JYbJY03LTc4DAPT6JzJ3HLQ0xDBJ46SwpuOgpTCGhTi5CNreNupRDAtr9gIA5ChoQI5iuBcAoBjlPABALoKWwhiOz+TylGQHLf0xLIhJZ9ByF8OSl4QFLe8xLFtJWNCGUgyLUdIQtIEWw2KUngZtGMawOGbvcFI5zt6hqJKavcNYZTF7JwGVtuydfFSksndyUwnF+bk/ClN/LU6ngmFoTgW9PsEKymuG5zhZpMtQo4IxoYIeDYkKBsUQrWD3P9P/yYvZGednNSvoeEPppIJBEZkKuqSC3f9M/yfvhmfO+ZdVJuBDHD0ypIJCim0YLZnydjBeECUOz0ahbcjI77EwKm8zYnuXTnZ8QZQdJOB5s/dhHYAf9Zo2qQ58A17Sn/RP+Egz9d6wTW3YmXi8sfGRuJckq+NO1lZVHh91WxovjvyS3oAAS/q/fg9vaAAAKFMAesQVCNCqOvDLcBzegvsacqO2hl+BIxqyoiugNqyqvFVx5N/op/CcLunbsF+va0HGOgCfQfPqwD/RNzXAQ80UzQ2PNzaeC+JO1lZV3sr8a3pYD8KSvgUBHkEpwzYAQIAKACB+DGM4+TScg4aTb+t4Psva68ltDY83Nj5aY8fH/NF+qVpDJ3ea3Nb8s7oOwHXtbHIFBRatqgN/WX+Gp/oeZGdDbQ2PNzYeMqG4kxHamn8PXoAAj2EZnmo3rzuXNPRHp+AQhCmCZvbMyRYA"><figcaption>Page 1, high pass. The middle fills in as an island and the water lies outside it.</figcaption></figure><figure><img alt="Page 2: Drift, Slope and Type. The second page dot is lit." src="data:image/webp;base64,UklGRhYFAABXRUJQVlA4TAkFAAAv/8IvAH/DoG0bwbkk3T2HZ9C2jaC4dwyeP9U/Bm3bCKrbu0fx/Gne/AfldmxjoTKEAW5DpISRAkZKGCKVUs0gMtsYwmiD6LEdQhjENhYqkSLwVKWI736MbVQIHyJltCJSGYWR4vC6VIEQ4u0SBHvONZMR26RY9Gab23G7EIa4XSI108ZQWIkUcRswI24HIThP/2zzfz8DtWvb0zaSZ5lpmJmZmZlhmZnr7f//bjtZVZaVjtXed0T/IUGS2zYa/FA1DhAuEKLjs1r0j2X/WWKVbVoAsJRaXNdcPZqlBi/FJpZqUcjDzpjRp45lH4e1m8M6pMyFjRfBI6l/UEp85lQ9HHekQS0myIoLGmQ3f9RtWh6hEl8MsptRamFEGk5opt/ttVpuMqeZdrwmumlQC03UOVUzcNA6ey1AXgBQBKB2qHnobos7gqkZ5Y7/mVLNQzcNaua4438CqPnmpkfNELeAQFVzIBHeTZiaAxlVLQjInwWIqoZ0k6e+AGDYlxvlAts0mJpXg9ahG8Ne19T6pQNqj9TrOqRupp2Mvq79csf/9Es93QoGwc1V9TQAQC/c8T8xqAtI4t0hUpNE5O74n6jUxBPeHTS1LwPVaAnpjvyJNqEmGHWhMrm3AAlJhMuNIoD41ZCk1h1eNQ3E5o7/6ZcahnS6w672nXjc8T+JUbe1whS62a5uU1WNwR3/kwA1GenwboaoyUiHdIsYVDXMAqTXqGqq3AQ/Z3uveQFAmP4pFEjDGHYiiRy05skYtkeEH7QWAaRQbQGJcXNM7QWB3fE/qVVT4s4oamB3/E+y1aRursvtLXkh3TE/g3DUInz3+Gl2861/CinUfpHaTL71T2mFqvaFpLr51j/FFqoaP4l0861/ijBUNWaS5+Zb/xRnqGqcJMzNt/4p1Ij5dfdMUeRb/xQ3nF7yJ6pF/1j+l8Ma/z1SAQDYpsmusJrmpkrefVQBIHBnHtbxPzPHV7uW4V/+2zLdHNYYiG1qN7xnRdUwh6MXd3/8z+J/eikK3tQbUOYS2yw0VRzWPt7+k1rDL7oZmryiX+s6mJ7mTf1D92vgEaiaSLoLuxdq+FMfwfifWTa9By5Ak2NwFSayEn6Ex9Bkq67R+1oNU3QXdi8cgo/0SyjjAIaXFXAKXocKVsEGvQATuQK7Yae20vCv7oWBoruwzfRfcE6rVlD6cFgBQM1A3oGr8IZWANyDGoAftJvLsBt2aUf6bfhMezeX7ku6u7DNdB+fQq0AoOcxr4PJBagB6B6iTpNeCT/BY2il4S+4pAOV7i5six5G+cLc/4x5XbAX+p9Vo4Ag5fO3a/o3fAEfawVXoIb/YDvsgRqAK7AOagC+0u+UVvAaVJDyIdsa/V5rOKMVbNUT2uQ9/QZ+hU3Qsf3+rDZvA/AMYqh5Mujupdu6Cl7VJ7pPpyx40QMQG6t1B9yDJmthl97RCrboGQXWwQWoWsFGPaNDcUF7oQJgIufhIKyCJ9q9/X5wRpHT9NJb+kAv6nqdvuBlGauggk+1lYZf4QPoppWGWzosvKu39R6sg4nchE+ggufQvf1+L9QA3IWBAjiuzapOX/ASh8OqqsB8KwSCvclqNWT6KBzXqNIRPoxCJab4EJ5ogHQFQCL//T6sC0h3v01f8AILYHr+geZ55xZQwVM9ADUAV6CbYUmrNfwOR7RJDcDP+r5+C7/BZphIDcDnkLZ0JExf8CKJRbY3IPdykqXpAwA="><figcaption>Page 2: Drift, Slope and Type. The second page dot is lit.</figcaption></figure><figure><img alt="Page 3: Mix, the dry/wet balance. The third page dot is lit." src="data:image/webp;base64,UklGRpgCAABXRUJQVlA4TIwCAAAv/8IvAE+htm0jN3kOl779r15x27aRZSfp69h/2ZZt20iOo+N290x8n/38Rwghog2C7o1I18i0M5dd7GBssjnhhClEZKse+EREDkBEZFPF5oCoqoWB3wBBJBsxANnt79+7Hz6759l1GCTItt22jZyeMHHvvZf9r1FERiJBAgbAeyP674aNJEVyZ8/UD3PP4Sr7Z/FfY1WnFYCWWi50rp6btYZPsYmlWhW66U2iTx3rPrvQbxdS/AalVQOoJmTdHRrLQuryX2vwfV0utAKwuBO18QNY/Lf4b6mNWs9SU7Ck9abD9SRcIw4BANokgBrQayipQJ0iajQ896b8txtKsIbzQadpt/Kz/n/XqgCbrGHO2aHIFK38N5waZhVjL1r5L9o17NaTdt/kSlVHV7TyXxxqmBlWHn7Ryn8xrGHqG2DR6hFdKCOqYXKLzA1N15sqQBxqmL4iU7TyXxRrmICJTNHKfxGuYVJ2cKRFK/9NSA1T8AdLjqVoJb4IJjsxlBJf9JNhGEqJb+KSJRhKiW/Sk+gMpcQ3Y5KsDKXEN8+Sfn9mRW+qJIfNnyxq/9Xwn+F/NfwuzJBTRu0/X2pwc++Ss9At5qNLdYADxl2IzDBzFybnklP+y/8rL6obxVRzFyZqarcL0zX63tah3aRdKP/l/5XLeu3u7MIoxuzRm//vQiXlQ8lWqXG8biPqBr6DQVvCSKdSj7AHv/QF/uobAOewr+/6He50/rxwYOsv66gAzPvc6ome6q0Cf+AIVrAD6pX+0NXcTf3rn57BNfQDDvQBVtDqsAsAEDwMH+sZDgAI+gb3egy/YQLfJmvIJ+zwT/xdiM/rDmou/cudL/WnftUn/aJZZeVaxuheFFkoa9MH"><figcaption>Page 3: Mix, the dry/wet balance. The third page dot is lit.</figcaption></figure></div>
-    <p>It is a night sea seen from the shore. The <b>open water is what the filter lets through</b> and the <b>land is what it stops</b>. The picture reads from the centre line outward as low to high frequency, so the shores sit further out as the cutoff rises.</p>
+    <div class="panel" id="livescreen"><span class="screw tl"></span><span class="screw tr"></span><span class="screw bl"></span><span class="screw br"></span><div class="screenframe"><canvas id="hero" class="screen" width="256" height="64" aria-label="The Strait screen, animated"></canvas></div><div class="potrow"><label>Freq<input type="range" id="sFreq" min="-400" max="600" value="200"></label><label>Res<input type="range" id="sRes" min="0" max="1000" value="250"></label><label>Spread<input type="range" id="sSpread" min="-1000" max="1000" value="350"></label></div><div class="potrow"><label>Drift<input type="range" id="sDrift" min="0" max="1000" value="300"></label><div><div class="seglabel">Type</div><div class="seg" role="group" aria-label="Type"><button type="button" data-type="0" aria-pressed="true">LP</button><button type="button" data-type="1" aria-pressed="false">BP</button><button type="button" data-type="2" aria-pressed="false">HP</button></div></div><div><div class="seglabel">Slope</div><div class="seg" role="group" aria-label="Slope"><button type="button" data-slope="0" aria-pressed="true">12 dB</button><button type="button" data-slope="1" aria-pressed="false">24 dB</button></div></div></div><div class="seglabel">Page</div><div class="seg" role="group" aria-label="Page"><button type="button" data-page="0" aria-pressed="true">1</button><button type="button" data-page="1" aria-pressed="false">2</button><button type="button" data-page="2" aria-pressed="false">3</button></div><p class="cap">This is the module's screen, running a port of the plug-in's drawing code. The sliders are the pots on page 1; Drift, Type, Slope and Page are here so you can see the rest of the scene. The lit page dot and the pot labels follow the page. (The labels use a stand-in font; the module's own is a little different.)</p></div>
+    <p>The whole display belongs to Strait. There is no parameter line along the top; the screen is a small scene that shows what the filter is doing. It is a night sea seen from the shore. The <b>open water is what the filter lets through</b> and the <b>land is what it stops</b>. The picture reads from the centre line outward as low to high frequency, so the shores sit further out as the cutoff rises.</p>
     <ul><li>The <b>left shore</b> is the left filter and the <b>right shore</b> is the right filter. Each has a small lamp tower.</li><li><b>FREQ</b> moves both shores. <b>SPREAD</b> pulls them apart in opposite directions, so the whole channel swings to one side.</li><li><b>TYPE</b> redraws the land. Low pass keeps the water between the shores. High pass fills that stretch in as an island, with the water outside it. Band pass leaves only a narrow channel at each cutoff.</li><li><b>RES</b> lights the lamps and narrows the band-pass channels. At self-oscillation, rings spread across the water.</li><li><b>SLOPE</b> sets how steeply the cliffs fall: gentle at 12 dB per octave, steep at 24.</li><li><b>DRIFT</b> makes each shore wander on its own. In its upper half the whole picture also weaves, like a worn tape.</li></ul>
     <p>Along the bottom, a label names what each pot does right now, with a small bar for its value. The three small squares at the bottom left are the page dots: the lit one is the page you are on.</p>
   </section>
 
-  <section id="pots">
-    <h2>The pots</h2>
-    <p>The three pots always edit three parameters, and which three depends on the page. <b>Push the centre pot</b> to step to the next page.</p>
-    <div class="tablewrap"><table><tr><th>Page</th><th>Left pot</th><th>Centre pot</th><th>Right pot</th></tr><tr><td>1</td><td>FREQ</td><td>RES</td><td>SPREAD</td></tr><tr><td>2</td><td>DRIFT</td><td>SLOPE</td><td>TYPE</td></tr><tr><td>3</td><td>MIX</td><td></td><td></td></tr></table></div>
-    <p>After a page change each pot stays silent until you turn it to the value it now owns, so nothing jumps. Flip pages freely while playing.</p>
-    <p>On page 1, <b>pushing the right pot returns SPREAD to centre</b>. This is labelled PUSH: CENTRE along the top edge of the screen. On page 2 the right pot push does nothing.</p>
-    <p>Strait leaves the rest of the module alone. Buttons 1 to 4, the left pot push and the left encoder push work as they do everywhere on the disting NT. The encoders and the right pot push do nothing while Strait's screen is showing; press button 2 for the parameter list, where they work as usual.</p>
-  </section>
-
-  <section id="params">
-    <h2>Parameters</h2>
-    <p>Every parameter is a normal disting NT parameter, so all of it can be mapped to CV, MIDI or i2c and automated through the module's own Mappings, like a built-in algorithm.</p>
-    <div class="tablewrap wide"><table><tr><th>Parameter</th><th>Range</th><th>Notes</th></tr><tr><td>Freq</td><td>about 16 Hz to 16.7 kHz</td><td>The cutoff, shown in Hz, for both sides together.</td></tr><tr><td>Res</td><td>0.0 to 100.0%</td><td>Resonance, for both sides. Self-oscillation starts above about 90%.</td></tr><tr><td>Spread</td><td>-100.0 to +100.0%</td><td>Moves the two cutoffs in opposite directions, by up to an octave each. At 0 they are the same.</td></tr><tr><td>Drift</td><td>0.0 to 100.0%</td><td>A slow, separate wander of each side's cutoff. At 0 it is off.</td></tr><tr><td>Slope</td><td>12 or 24 dB/oct</td><td>Roll-off steepness.</td></tr><tr><td>Type</td><td>Low pass, Band pass, High pass</td><td>The filter response.</td></tr><tr><td>Mix</td><td>0.0 to 100.0%</td><td>Dry/wet. 100% is the filter alone (the default), 0% is the input alone.</td></tr><tr><td>Left input</td><td>None</td><td>Audio in, left. With None Strait is fed silence (it can still sing at high Res).</td></tr><tr><td>Right input</td><td>None</td><td>Set to None for mono: the left input then feeds both sides.</td></tr><tr><td>Left output</td><td>None</td><td>Set to None and the left side writes nothing.</td></tr><tr><td>Right output</td><td>None</td><td>Set to None and both sides are summed into the left output.</td></tr><tr><td>Output mode</td><td>Replace</td><td>Replace overwrites the output buses, Add sums onto them. One setting for both outputs.</td></tr><tr><td>V/Oct input</td><td>None</td><td>Optional 1 V per octave pitch input for the cutoff.</td></tr></table></div>
-    <p>The macros run at 0.1% resolution and every audible target glides inside the filter, so mapped steps and fast automation stay clean.</p>
-  </section>
-
-  <section id="stereo">
-    <h2>A matched pair</h2>
-    <p>With SPREAD at 0 and DRIFT at 0, the left and right filters are identical, and the left and right outputs are exactly the same, sample for sample, whenever the two inputs carry the same signal. Move either parameter and the two sides part company.</p>
+  <section id="knobs">
+    <h2>The three knobs</h2>
+    <p>Page 1 holds the three controls you play most. They are the three pots as soon as you add Strait.</p>
+    <h3>FREQ</h3>
+    <p>The cutoff, for both sides together, shown in Hz from about 16 Hz to 16.7 kHz. The V/Oct input and any CV mapped to Freq add to it.</p>
+    <h3>RES</h3>
+    <p>Resonance, for both sides. It rises smoothly and stays stable across the whole range, including when the cutoff is modulated at audio rate. The band-pass response keeps its level as resonance rises: its peak at the cutoff grows as the band narrows, so turning Res up sharpens the sound without thinning it out.</p>
+    <p>In the top tenth of its travel (above about 90%) the filter begins to oscillate on its own and makes a clean sine tone on each side, at the cutoff. The tone starts by itself, even with nothing patched; turn Res down to stop it. It follows the V/Oct input closely, so Strait can be played as a pair of sine oscillators, and Spread tunes the two tones apart. Low pass and high pass give the tone at about 5 V peak. Band pass is quieter.</p>
+    <p class="note"><b>Note.</b> Resonant peaks can be louder than the signal going in. Anything above 10 V is gently limited, so a hot input at high resonance cannot run away.</p>
+    <h3>SPREAD</h3>
+    <p>Moves the two cutoffs in opposite directions, by up to an octave each, so the two sides can be two octaves apart. At 0 they are the same. With SPREAD at 0 and DRIFT at 0, the left and right filters are identical, and the left and right outputs are exactly the same, sample for sample, whenever the two inputs carry the same signal. Move either parameter and the two sides part company.</p>
     <p>If <b>Right input</b> is set to None it copies the left input. A mono source patched only to the left input therefore comes out in stereo as soon as SPREAD or DRIFT moves.</p>
   </section>
 
-  <section id="mix">
-    <h2>Mix</h2>
-    <p><b>Mix</b> blends the dry input with the filtered sound, and works as a plain linear balance: at 100% you hear only the filter, at 0% only the input, and in between the two are added in proportion. The dry sound is the input as patched, so with <b>Right input</b> set to None the right side's dry sound is the left input too. At 0% the output is exactly the input, sample for sample, and the filter keeps running underneath, so bringing Mix back up never starts from silence. Mix is smoothed, so a pot move or a CV on it never clicks.</p>
-    <p>A band-pass or high-pass mixed with the dry sound gives the familiar phase-coloured, comb-like tones, which is part of the fun.</p>
+  <section id="controls">
+    <h2>Other controls</h2>
+    <p>Everything else sits on pages 2 and 3, or on the module itself.</p>
+    <div class="tablewrap ctl"><table><tr><th>Control</th><th>What it does</th></tr><tr><td>Left, centre and right pot, turn</td><td>Edit the three parameters of the current page. After a page change each pot stays silent until you turn it to the value it now owns, so nothing jumps.</td></tr><tr><td>Centre pot, push</td><td>Step to the next page: 1, 2, 3, then back to 1.</td></tr><tr><td>Right pot, push</td><td>On page 1, return SPREAD to centre (labelled PUSH: CENTRE along the top edge of the screen). On pages 2 and 3 it does nothing.</td></tr><tr><td>Both encoders, right encoder push</td><td>Do nothing while Strait's screen is showing, so they never change a parameter you cannot see.</td></tr><tr><td>Button 2</td><td>Switch to the NT's parameter list, where every value can be edited, including routing.</td></tr><tr><td>Buttons 1, 3 and 4, left pot push, left encoder push</td><td>The NT's own. The left pot push and left encoder push take you back to the overview.</td></tr></table></div>
+    <h3>DRIFT</h3>
+    <p>A slow, separate wander of each side's cutoff. At 0 it is off. It is smoothed, so a slow LFO or a stepped CV on it glides instead of clicking.</p>
+    <h3>SLOPE</h3>
+    <p>12 dB per octave by default, which is gentle and suits ambient work. At 24 dB per octave a second, fixed stage follows the filter for a steeper roll-off. All the resonance stays in the first stage, so the self-oscillating tone is just as clean. Changing Slope while a sound is playing never clicks: going to 24 dB the second stage is brought up for a moment first and then faded in, and going back to 12 dB it fades out.</p>
+    <h3>TYPE</h3>
+    <p>Chooses which response comes out: low pass, band pass or high pass. Strait runs all three at once and picks one, so changing Type while a sound is playing never restarts the filter. The change crossfades over a few milliseconds, which keeps a stepped CV, an LFO or a pot sweep on Type free of clicks. At 24 dB per octave there is a short extra delay (about a fiftieth of a second) before a change is heard, while the filter gets ready.</p>
+    <h3>MIX</h3>
+    <p>Blends the dry input with the filtered sound, as a plain linear balance: at 100% you hear only the filter, at 0% only the input, and in between the two are added in proportion. The dry sound is the input as patched, so with <b>Right input</b> set to None the right side's dry sound is the left input too. At 0% the output is exactly the input, sample for sample, and the filter keeps running underneath, so bringing Mix back up never starts from silence. Mix is smoothed, so a pot move or a CV on it never clicks. A band-pass or high-pass mixed with the dry sound gives the familiar phase-coloured, comb-like tones, which is part of the fun.</p>
   </section>
 
-  <section id="type">
-    <h2>Type and slope</h2>
-    <p><b>Type</b> chooses which response comes out: low pass, band pass or high pass. Strait runs all three at once and picks one, so changing Type while a sound is playing never restarts the filter. The change crossfades over a few milliseconds, which keeps a stepped CV, an LFO or a pot sweep on Type free of clicks. At 24 dB per octave there is a short extra delay (about a fiftieth of a second) before a change is heard, while the filter gets ready.</p>
-    <p><b>Slope</b> is 12 dB per octave by default, which is gentle and suits ambient work. At 24 dB per octave a second, fixed stage follows the filter for a steeper roll-off. All the resonance stays in the first stage, so the self-oscillating tone is just as clean. Changing Slope while a sound is playing never clicks: going to 24 dB the second stage is brought up for a moment first and then faded in, and going back to 12 dB it fades out.</p>
-  </section>
-
-  <section id="res">
-    <h2>Resonance and self-oscillation</h2>
-    <p>Resonance rises smoothly with Res and stays stable across the whole range, including when the cutoff is modulated at audio rate. In the top tenth of its travel (above about 90%) the filter begins to oscillate on its own and makes a clean sine tone on each side, at the cutoff. The tone follows the V/Oct input closely, so Strait can be played as a pair of sine oscillators, and Spread tunes the two tones apart. Low pass and high pass give the tone at about 5 V peak. Band pass is quieter.</p>
-    <p>The band-pass response keeps its level as resonance rises. Its peak at the cutoff grows as the band narrows, so turning Res up sharpens the sound without thinning it out.</p>
-    <p>The tone starts by itself, even with nothing patched. Turn Res down to stop it.</p>
-    <p class="note"><b>Note.</b> Resonant peaks can be louder than the signal going in. Anything above 10 V is gently limited, so a hot input at high resonance cannot run away.</p>
-  </section>
-
-  <section id="cv">
-    <h2>CV and modulation</h2>
-    <p>Map any parameter to CV with the disting NT's Mappings. By default a mapping covers the parameter's whole range, so a full-range CV sweeps Res from 0 to 100%, or Spread from far left to far right.</p>
+  <section id="nt">
+    <h2>On the disting NT</h2>
+    <h3>Installing</h3>
+    <p>Strait needs disting NT firmware <b>1.19 or newer</b>.</p>
+    <ol><li>Get <code>strait-plugin.zip</code> from the latest release on the Strait GitHub page, or add Strait from the disting NT Plugin Gallery.</li><li>Unzip it onto the MicroSD card, so that <code>strait.o</code> ends up in <code>programs/plug-ins/ormermodular/</code>.</li><li>Restart the module, or rescan plug-ins from the settings menu.</li><li>Add an algorithm, then choose <b>Strait</b> (tagged Effect and Filter/EQ).</li><li>Every input and output starts on None, so Strait takes no bus until you route it: on the <b>Routing</b> page set Left input, and Left output (and Right output for stereo).</li></ol>
+    <h3>Pages</h3>
+    <p>The three pots always edit three parameters, and which three depends on the page. Push the centre pot to step to the next page.</p>
+    <div class="pages"><div class="pagecard"><div class="pagehead"><span class="pageno">PAGE 1</span><span class="pagename">The sound</span><span class="pagewhat">Where the filter sits and how it rings</span></div><div class="potline"><div class="potviz"><div class="potdot"></div><b>FREQ</b><small>Cutoff</small></div><div class="potviz"><div class="potdot push"></div><b>RES</b><small>Resonance</small><span class="pushhint">push: next page</span></div><div class="potviz"><div class="potdot push"></div><b>SPREAD</b><small>Left/right split</small><span class="pushhint">push: centre</span></div></div></div><div class="pagearrow">push the centre pot</div><div class="pagecard"><div class="pagehead"><span class="pageno">PAGE 2</span><span class="pagename">Character</span><span class="pagewhat">How it behaves</span></div><div class="potline"><div class="potviz"><div class="potdot"></div><b>DRIFT</b><small>Wander</small></div><div class="potviz"><div class="potdot push"></div><b>SLOPE</b><small>12 or 24 dB/oct</small><span class="pushhint">push: next page</span></div><div class="potviz"><div class="potdot"></div><b>TYPE</b><small>LP, BP or HP</small></div></div></div><div class="pagearrow">push the centre pot</div><div class="pagecard"><div class="pagehead"><span class="pageno">PAGE 3</span><span class="pagename">Balance</span><span class="pagewhat">How much of it you hear</span></div><div class="potline"><div class="potviz"><div class="potdot"></div><b>MIX</b><small>Dry/wet</small></div><div class="potviz"><div class="potdot"></div><small>&nbsp;</small></div><div class="potviz"><div class="potdot"></div><small>&nbsp;</small></div></div></div></div>
+    <h3>Parameters</h3>
+    <p>Every parameter is a normal disting NT parameter, so all of it can be mapped to CV, MIDI or i2c and automated through the module's own Mappings, like a built-in algorithm. The first seven are on the Strait page; the rest are on the Routing page, in the order the disting NT's routing pages use.</p>
+    <div class="tablewrap wide"><table><tr><th>Parameter</th><th>Default</th><th>Notes</th></tr><tr><td>Freq</td><td>1.05 kHz</td><td>The cutoff, from about 16 Hz to 16.7 kHz, shown in Hz, for both sides together.</td></tr><tr><td>Res</td><td>0.0%</td><td>Resonance, 0.0 to 100.0%. Self-oscillation starts above about 90%.</td></tr><tr><td>Spread</td><td>0.0%</td><td>-100.0 to +100.0%. Moves the two cutoffs in opposite directions, by up to an octave each.</td></tr><tr><td>Drift</td><td>0.0%</td><td>0.0 to 100.0%. A slow, separate wander of each side's cutoff.</td></tr><tr><td>Slope</td><td>12 dB/oct</td><td>12 or 24 dB/oct. Roll-off steepness.</td></tr><tr><td>Type</td><td>Low pass</td><td>Low pass, Band pass or High pass.</td></tr><tr><td>Mix</td><td>100.0%</td><td>Dry/wet, 0.0 to 100.0%. 100% is the filter alone, 0% is the input alone.</td></tr><tr><td>Left input</td><td>None</td><td>Audio in, left. With None Strait is fed silence (it can still sing at high Res).</td></tr><tr><td>Right input</td><td>None</td><td>Set to None for mono: the left input then feeds both sides.</td></tr><tr><td>Left output</td><td>None</td><td>Set to None and the left side writes nothing.</td></tr><tr><td>Right output</td><td>None</td><td>Set to None and both sides are summed into the left output.</td></tr><tr><td>Output mode</td><td>Replace</td><td>Replace overwrites the output buses, Add sums onto them. One setting for both outputs.</td></tr><tr><td>V/Oct input</td><td>None</td><td>Optional 1 V per octave pitch input for the cutoff.</td></tr></table></div>
+    <p>The macros run at 0.1% resolution and every audible target glides inside the filter, so mapped steps and fast automation stay clean.</p>
+    <h3>Mappings and CV</h3>
+    <p>Map any parameter to CV with the disting NT's Mappings. By default a mapping covers the parameter's whole range, so a full-range CV sweeps Res from 0 to 100%, or Spread from far left to far right. The parameters are smoothed, so a slow LFO or a stepped CV on Freq, Spread, Res, Drift or Mix glides instead of clicking.</p>
     <p>The <b>V/Oct input</b> is separate from the mappings. It adds to the cutoff at 1 V per octave, sample by sample and without smoothing, so it can be driven at audio rate for frequency modulation. A tracked pitch CV there, with Res above 90%, makes Strait a pair of sine oscillators.</p>
-    <p>The parameters themselves are smoothed, so a slow LFO or a stepped CV on Freq, Spread, Res, Drift or Mix glides instead of clicking.</p>
+  </section>
+
+  <section id="recipes">
+    <h2>Field notes</h2>
+    <h3>A mono pad, opened out</h3>
+    <p>Left input to the pad, Right input None, Left and Right output to a stereo pair. Low pass, Res around 30%, Spread at +40%. Map a slow LFO to Spread and the filtering sways between the speakers while the pad itself stays put.</p>
+    <h3>A pair of sine oscillators</h3>
+    <p>Res above 90%, low pass, a pitch CV into the V/Oct input. The tone starts by itself, so Left input can stay None. A little Spread detunes the two sides against each other, and a lot of it makes two separate notes.</p>
+    <h3>A slow, unsteady stereo image</h3>
+    <p>Spread at 0 and Drift around 40%. The two sides start identical and then wander apart on their own, slowly, so the centre stays where it is and the edges breathe.</p>
+    <h3>Comb-tinged texture</h3>
+    <p>Band pass or high pass with Mix at about 50%. The dry sound and the filtered sound add with different phase, which gives a hollow, comb-like colour. Sweep Freq with an LFO.</p>
+    <h3>A filter that follows a player</h3>
+    <p>Map an envelope or the output of an envelope follower to Freq, and the cutoff rises and falls with the playing. Add Spread from a second source to move the two sides independently.</p>
   </section>
 
   <section id="trouble">
@@ -190,6 +209,7 @@
     <p><b>Left and right sound the same.</b> That is by design when Spread and Drift are both at 0. Turn Spread or Drift.</p>
     <p><b>The right output is silent.</b> The right side is fed from Right input, or from the left input if Right input is None. Check that Left input is routed to the bus carrying your signal, and that Right output is not set to None (which sums both sides into the left output).</p>
     <p><b>The pots do nothing after a page change.</b> Each pot stays silent until you turn it to the value it now owns. Turn it past that value and it takes over.</p>
+    <p><b>A saved preset will not load.</b> Presets saved with an earlier pre-release version of Strait cannot be loaded. Add a fresh Strait and set it up again.</p>
     <p><b>Strait does not appear in the algorithm list.</b> Check the firmware is 1.19 or newer and that <code>strait.o</code> is in <code>programs/plug-ins/ormermodular/</code> on the card.</p>
   </section>
 
@@ -204,6 +224,219 @@
   </footer>
 
 </div>
+<script>
+// The Strait disting NT display for the manual: a port of draw() in nt/strait_nt.cpp onto a
+// 256x64 canvas. Keep it in step with the plug-in: tools/check-nt-screen-port.sh renders the
+// same frames from the real C++ and from this file and fails on a single differing pixel.
+// The module's own font is not available here: the labels use a small stand-in glyph set.
+(function () {
+  var cv = document.getElementById('hero');
+  if (!cv) return;
+  var ctx = cv.getContext('2d');
+  var F = Math.fround;
 
+  // ---- canvas helpers (same shapes as NT_drawShapeI / NT_drawText) ------------------------
+  function shade(c) {
+    var a = c / 15; a = a * (0.55 + 0.45 * a);
+    return 'rgb(' + Math.round(8 + a * 225) + ',' + Math.round(10 + a * 235) + ',' + Math.round(14 + a * 241) + ')';
+  }
+  function P(x, y, c) { if (x < 0 || x > 255 || y < 0 || y > 63) return; ctx.fillStyle = shade(Math.max(0, Math.min(15, c))); ctx.fillRect(x, y, 1, 1); }
+  function rect(x0, y0, x1, y1, c) { for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) P(x, y, c); }
+  function line(x0, y0, x1, y1, c) {
+    var dx = x1 - x0, dy = y1 - y0, n = Math.max(Math.abs(dx), Math.abs(dy));
+    if (!n) { P(x0, y0, c); return; }
+    for (var i = 0; i <= n; i++) P(x0 + Math.trunc(dx * i / n), y0 + Math.trunc(dy * i / n), c);
+  }
+  function clampi(x, lo, hi) { return x < lo ? lo : (x > hi ? hi : x); }
+  // the plug-in's shape(): every coordinate and the colour are clamped before drawing
+  function shape(kind, x0, y0, x1, y1, c) {
+    x0 = clampi(x0, 0, 255); y0 = clampi(y0, 0, 255 > 63 ? 63 : 63); x1 = clampi(x1, 0, 255); y1 = clampi(y1, 0, 63); c = clampi(c, 0, 15);
+    if (kind === 'point') P(x0, y0, c); else if (kind === 'line') line(x0, y0, x1, y1, c); else rect(x0, y0, x1, y1, c);
+  }
+  // 3x5 stand-in glyphs, row by row
+  var G = { '1': '010110010010111', '2': '110001010100111', '4': '101101111001001',
+            'A': '010101111101101', 'B': '110101110101110', 'C': '011100100100011', 'D': '110101101101110',
+            'E': '111100110100111', 'F': '111100110100100', 'H': '101101111101101', 'I': '111010010010111',
+            'L': '100100100100111', 'M': '101111111101101', 'N': '110101101101101', 'O': '010101101101010',
+            'P': '110101110100100', 'Q': '010101101111011', 'R': '110101110101101', 'S': '011100010001110',
+            'T': '111010010010010', 'U': '101101101101111', 'X': '101101010101101', 'Y': '101101010010010',
+            ':': '000010000010000', 'd': '001001111101111' };
+  // y is the baseline; align 'l' | 'c' | 'r'; always the tiny size
+  function text(x, y, s, c, align) {
+    var gw = 3, gh = 5, adv = 4, w = s.length * adv - 1;
+    var x0 = align === 'c' ? x - Math.trunc(w / 2) : (align === 'r' ? x - w : x), yT = y - (gh - 1);
+    for (var i = 0; i < s.length; i++) {
+      var g = G[s[i]]; if (!g) continue;
+      for (var r = 0; r < gh; r++) for (var k = 0; k < gw; k++)
+        if (g[r * 3 + k] === '1') P(x0 + i * adv + k, yT + r, c);
+    }
+  }
+
+  // ---- the plug-in's tables ----------------------------------------------------------------------
+  var kHorizonY = 42, kMidX = 128, kNumPages = 3, kUnused = 255;
+  // parameter indices as in the plug-in's table
+  var FREQ = 0, RES = 1, SPREAD = 2, DRIFT = 3, SLOPE = 4, TYPE = 5, MIX = 12;
+  var RANGE = {}; RANGE[FREQ] = [-400, 600]; RANGE[RES] = [0, 1000]; RANGE[SPREAD] = [-1000, 1000];
+  RANGE[DRIFT] = [0, 1000]; RANGE[SLOPE] = [0, 1]; RANGE[TYPE] = [0, 2]; RANGE[MIX] = [0, 1000];
+  var POT = [[FREQ, RES, SPREAD], [DRIFT, SLOPE, TYPE], [MIX, kUnused, kUnused]];
+  var NAME = [['FREQ', 'RES', 'SPREAD'], ['DRIFT', 'SLOPE', 'TYPE'], ['MIX', '', '']];
+  var kFreqMinOct = -4, kFreqMaxOct = 6, kSpreadMaxOct = 1;
+  var C_001 = F(0.01), C_0001 = F(0.001), C_INV = F(1 / F(kFreqMaxOct - kFreqMinOct));
+
+  var S = { tick: 0, page: 0, v: [200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1000] };
+
+  function hash(a, b, c) {
+    var h = (Math.imul(a, 0x9E3779B1) ^ Math.imul(b, 0x85EBCA77) ^ Math.imul(c, 0xC2B2AE3D)) >>> 0;
+    h = (h ^ (h >>> 15)) >>> 0; h = Math.imul(h, 0x846CA68B) >>> 0;
+    return (h ^ (h >>> 16)) >>> 0;
+  }
+  function sweepWave(ph) {
+    var q = F(F(ph * 2) - 1), aq = q < 0 ? -q : q;
+    return F(F(4 * q) * F(1 - aq));
+  }
+  function shoreOffset(oct) {
+    var t = F(F(oct - kFreqMinOct) * C_INV);
+    t = t < 0 ? 0 : (t > 1 ? 1 : t);
+    return 12 + Math.trunc(F(t * 104));
+  }
+  function drawLand(water, slope) {
+    var rise = slope ? F(0.55) : F(0.2);
+    for (var x = 0; x < 256; x++) {
+      var dist = 1000;
+      for (var k = 0; k < water.length; k++) {
+        var d = x < water[k][0] ? water[k][0] - x : (x > water[k][1] ? x - water[k][1] : 0);
+        if (d < dist) dist = d;
+      }
+      if (dist === 0) continue;
+      var h = 8 + Math.trunc(F(dist * rise));
+      if (h > 34) h = 34;
+      var top = kHorizonY - h, lit = top + 6 < kHorizonY ? top + 6 : kHorizonY;
+      shape('line', x, top + 1, x, lit, 4);
+      if (lit < kHorizonY) shape('line', x, lit + 1, x, kHorizonY, 3);
+      shape('point', x, top, x, top, x < kMidX ? 11 : 8);
+    }
+  }
+
+  // ---- draw(), line for line ---------------------------------------------------------------------
+  function draw() {
+    ctx.fillStyle = shade(0); ctx.fillRect(0, 0, 256, 64);
+    var v = S.v, t = (++S.tick) >>> 0;
+    var oct = F(v[FREQ] * C_001), res = F(v[RES] * C_0001);
+    var spread = F(F(v[SPREAD] * C_0001) * kSpreadMaxOct), drift = F(v[DRIFT] * C_0001);
+    var slope = v[SLOPE];
+
+    var lofi = F(F(drift - F(0.45)) / F(0.55));
+    if (lofi < 0) lofi = 0;
+    var jx = lofi > F(0.05) ? Math.trunc(F(sweepWave(((t * 3) & 255) / 256) * F(F(2.2) * lofi))) : 0;
+
+    for (var s = 0; s < 16; s++) {
+      var r = hash(s, 0x57A2, 0), x = r % 256, y = 2 + ((r >>> 9) % 24), tw = (r >>> 17) & 31;
+      var c = 6 - (((((t >>> 4) + tw) & 7) < 2) ? 3 : 0);
+      shape('point', x + jx, y, x + jx, y, c);
+    }
+    shape('rect', 30 + jx, 7, 33 + jx, 10, 7);
+    shape('point', 29 + jx, 8, 29 + jx, 9, 4);
+    shape('point', 34 + jx, 8, 34 + jx, 9, 4);
+
+    var wl = F(F(sweepWave(((t * 2) & 511) / 512) * 7) * drift);
+    var wr = F(F(sweepWave(((t * 3 + 150) & 511) / 512) * 7) * drift);
+    var tipL = kMidX + jx - shoreOffset(F(oct + spread)) + Math.trunc(wl);
+    var tipR = kMidX + jx + shoreOffset(F(oct - spread)) + Math.trunc(wr);
+    var water = [], lampXL, lampXR, type = v[TYPE];
+    if (type === 1) {
+      var w = 3 + Math.trunc(F(F(1 - res) * 10));
+      water.push([tipL - w, tipL + w]); water.push([tipR - w, tipR + w]);
+      lampXL = tipL - w - 2; lampXR = tipR + w + 2;
+    } else if (type === 2) {
+      water.push([-64, tipL]); water.push([tipR, 320]);
+      lampXL = tipL + 2; lampXR = tipR - 2;
+    } else {
+      water.push([tipL, tipR]);
+      lampXL = tipL - 1; lampXR = tipR + 1;
+    }
+    drawLand(water, slope);
+
+    var lampL = 5 + Math.trunc(F(res * 10));
+    if (lampL > 15) lampL = 15;
+    var lampR = lampL > 6 ? lampL - 1 : lampL;
+    var tx = [lampXL, lampXR], lc = [lampL, lampR];
+    for (var k = 0; k < 2; k++) {
+      var lx = tx[k];
+      shape('rect', lx - 1, kHorizonY - 17, lx + 1, kHorizonY - 10, 5);
+      shape('line', lx - 1, kHorizonY - 14, lx + 1, kHorizonY - 14, 3);
+      shape('rect', lx - 1, kHorizonY - 20, lx + 1, kHorizonY - 18, lc[k]);
+      shape('point', lx, kHorizonY - 21, lx, kHorizonY - 21, 6);
+      if (res > F(0.3)) {
+        var hl = 2 + Math.trunc(F(res * 7));
+        shape('line', lx - hl, kHorizonY - 19, lx + hl, kHorizonY - 19, Math.trunc(lc[k] / 3));
+      }
+    }
+    if (res > F(0.9)) {
+      var ring = 4 + ((t >>> 1) & 15);
+      shape('line', lampXL - ring, kHorizonY + 2, lampXL + ring, kHorizonY + 2, 4);
+      shape('line', lampXR - ring, kHorizonY + 2, lampXR + ring, kHorizonY + 2, 4);
+    }
+
+    shape('line', 0, kHorizonY, 255, kHorizonY, 5);
+    var slowT = (Math.imul(t, 2 + Math.trunc(F(10 * drift))) >>> 0) >>> 4;
+    for (var yy = kHorizonY + 3; yy < 62; yy += 3)
+      for (var xx = 0; xx < 256; xx += 3) {
+        var rr = hash((xx + (slowT % 512)) >>> 0, yy, slowT >>> 6);
+        if (rr < 0x14000000) shape('point', xx, yy, xx, yy, 4);
+      }
+    shape('line', lampXL, kHorizonY + 3, lampXL, 52, 2 + Math.trunc(lampL / 3));
+    shape('line', lampXR, kHorizonY + 3, lampXR, 52, 2 + Math.trunc(lampR / 3));
+
+    for (var i = 0; i < kNumPages; i++)
+      shape('rect', 3 + i * 4, 60, 5 + i * 4, 62, i === S.page ? 13 : 4);
+    if (S.page === 0) text(213, 7, 'PUSH: CENTRE', 6, 'c');
+
+    var cx = [43, 128, 213], pg = S.page;
+    for (var j = 0; j < 3; j++) {
+      var p = POT[pg][j];
+      shape('rect', cx[j] - 17, 54, cx[j] + 17, 63, 0);
+      if (p === kUnused) continue;
+      var vn = F(F(v[p] - RANGE[p][0]) / F(RANGE[p][1] - RANGE[p][0]));
+      if (p === SLOPE) text(cx[j], 57, v[p] ? '24 dB' : '12 dB', 11, 'c');
+      else if (p === TYPE) text(cx[j], 57, v[p] === 1 ? 'BP' : (v[p] === 2 ? 'HP' : 'LP'), 11, 'c');
+      else {
+        shape('line', cx[j] - 14, 56, cx[j] + 14, 56, 3);
+        var pos = Math.trunc(F(F(vn * 28) + F(0.5)));
+        if (p === SPREAD) {
+          shape('line', cx[j], 55, cx[j], 57, 6);
+          if (pos !== 14) shape('line', cx[j] - 14 + (pos < 14 ? pos : 14), 56, cx[j] - 14 + (pos < 14 ? 14 : pos), 56, 11);
+        } else if (pos > 0) shape('line', cx[j] - 14, 56, cx[j] - 14 + pos, 56, 11);
+        shape('line', cx[j] - 14 + pos, 55, cx[j] - 14 + pos, 57, 13);
+      }
+      text(cx[j], 63, NAME[pg][j], pg ? 12 : 9, 'c');
+    }
+  }
+
+  // ---- the manual's controls ----------------------------------------------------------------------
+  function bind(id, index) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    S.v[index] = +el.value;
+    el.addEventListener('input', function () { S.v[index] = +this.value; if (reduce) step(); });
+  }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function step() { draw(); }
+  function segment(attr, apply) {
+    var btns = document.querySelectorAll('[' + attr + ']');
+    function pick(val) {
+      apply(val);
+      for (var i = 0; i < btns.length; i++) btns[i].setAttribute('aria-pressed', btns[i].getAttribute(attr) === String(val) ? 'true' : 'false');
+      if (reduce) step();
+    }
+    for (var i = 0; i < btns.length; i++) btns[i].addEventListener('click', function () { pick(this.getAttribute(attr)); });
+  }
+  bind('sFreq', FREQ); bind('sRes', RES); bind('sSpread', SPREAD); bind('sDrift', DRIFT);
+  segment('data-type', function (x) { S.v[TYPE] = +x; });
+  segment('data-slope', function (x) { S.v[SLOPE] = +x; });
+  segment('data-page', function (x) { S.page = +x; });
+  if (reduce) { step(); } else setInterval(step, 1000 / 30);
+  window.__straitDemo = { state: S, draw: draw, step: step };
+})();
+</script>
 </body>
 </html>
